@@ -24,6 +24,13 @@ public class Corpse {
     public Corpse() {
     }
 
+    public Corpse(String name, String parentName, String location, Grave grave) {
+        this.name = name;
+        this.parentName = parentName;
+        this.location = location;
+        this.grave = grave;
+    }
+
     public String getId() {
         return id;
     }

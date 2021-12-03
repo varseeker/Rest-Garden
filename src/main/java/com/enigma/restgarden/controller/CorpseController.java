@@ -1,6 +1,7 @@
 package com.enigma.restgarden.controller;
 
 import com.enigma.restgarden.dto.CorpseDTO;
+import com.enigma.restgarden.dto.CorpseUpdateDTO;
 import com.enigma.restgarden.entity.Corpse;
 import com.enigma.restgarden.service.corpse.CorpseService;
 import com.enigma.restgarden.service.corpse.CorpseServiceDbImpl;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class CorpseController {
 
     @Autowired
@@ -26,5 +28,10 @@ public class CorpseController {
     @PostMapping("/corpse")
     public Corpse addCorpse(@RequestBody CorpseDTO corpseDto){
         return corpseServiceDb.createDataWithDto(corpseDto);
+    }
+
+    @PutMapping("/corpse")
+    public Corpse updateCorpse(@RequestBody CorpseUpdateDTO corpseUpdateDto){
+        return corpseServiceDb.updateDataWithDto(corpseUpdateDto);
     }
 }

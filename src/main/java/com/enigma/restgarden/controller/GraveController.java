@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class GraveController {
 
     @Autowired
@@ -28,6 +29,12 @@ public class GraveController {
         graveService.updateData(grave);
         return grave;
     }
+
+    @DeleteMapping("/grave/{id}")
+    public void deleteGrave(@PathVariable(name = "id") String id){
+        graveService.deleteData(id);
+    }
+
 
     @GetMapping("/graves/{name}")
     public List<Grave> findByNameAndAdress(@PathVariable(name = "name") String name){

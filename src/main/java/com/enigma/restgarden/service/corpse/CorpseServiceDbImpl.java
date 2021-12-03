@@ -1,6 +1,7 @@
 package com.enigma.restgarden.service.corpse;
 
 import com.enigma.restgarden.dto.CorpseDTO;
+import com.enigma.restgarden.dto.CorpseUpdateDTO;
 import com.enigma.restgarden.entity.Corpse;
 import com.enigma.restgarden.entity.Grave;
 import com.enigma.restgarden.repo.CorpseRepository;
@@ -42,7 +43,7 @@ public class CorpseServiceDbImpl implements CorpseService {
 
     @Override
     public Corpse updateData(Corpse corpse) {
-        return null;
+        return corpseRepository.save(corpse);
     }
 
     public Corpse createDataWithDto(CorpseDTO corpseDto) {
@@ -51,4 +52,13 @@ public class CorpseServiceDbImpl implements CorpseService {
         corpseRepository.save(corpse);
         return corpse;
     }
+
+    public Corpse updateDataWithDto(CorpseUpdateDTO corpseUpdateDTO) {
+        Corpse corpse = getDataById(corpseUpdateDTO.getCorpseId());
+        Grave grave = graveService.getDataById(corpseUpdateDTO.getGraveId());
+
+        corpse.setGrave(grave);
+        return corpseRepository.save(corpse);
+    }
+
 }

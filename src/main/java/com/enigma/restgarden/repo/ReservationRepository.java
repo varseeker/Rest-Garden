@@ -1,9 +1,9 @@
-//package com.enigma.restgarden.repo;
-//
-//import com.enigma.restgarden.entity.Reservation;
-//import org.springframework.data.jpa.repository.JpaRepository;
-//import org.springframework.stereotype.Repository;
+package com.enigma.restgarden.repo;
 
-//@Repository
-//public interface ReservationRepository extends JpaRepository<Reservation, String> {
-//}
+import com.enigma.restgarden.entity.Reservation;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface ReservationRepository extends JpaRepository<Reservation, String> {
+}

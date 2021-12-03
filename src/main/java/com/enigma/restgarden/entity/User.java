@@ -30,6 +30,13 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "grave_id"))
     private List<Grave> graves = new ArrayList<>();
 
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "tx_reservation",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "grave_id"))
+    private List<Grave> reservationGraves = new ArrayList<>();
+
     public User() {
     }
 
@@ -95,6 +102,14 @@ public class User {
 
     public void setGraves(List<Grave> graves) {
         this.graves = graves;
+    }
+
+    public List<Grave> getReservationGraves() {
+        return reservationGraves;
+    }
+
+    public void setReservationGraves(List<Grave> reservationGraves) {
+        this.reservationGraves = reservationGraves;
     }
 
     @Override

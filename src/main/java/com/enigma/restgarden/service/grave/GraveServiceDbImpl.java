@@ -1,11 +1,16 @@
 package com.enigma.restgarden.service.grave;
 
 import com.enigma.restgarden.entity.Grave;
+import com.enigma.restgarden.entity.Reservation;
 import com.enigma.restgarden.repo.GraveRepository;
+import com.enigma.restgarden.service.reservation.ReservationServiceDbImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GraveServiceDbImpl implements GraveService{
@@ -15,7 +20,16 @@ public class GraveServiceDbImpl implements GraveService{
 
     @Override
     public Grave getDataById(String id) {
-        return graveRepository.getById(id);
+        Optional<Grave> graveOptional = isReservationExist(id);
+        return graveOptional.get();
+    }
+
+    private Optional<Grave> isReservationExist(String id) {
+        Optional<Grave> graveOptional = graveRepository.findById(id);
+        if (!graveOptional.isPresent()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cant find reservation with that id, please check and try again");
+        }
+        return graveOptional;
     }
 
     @Override
@@ -35,7 +49,9 @@ public class GraveServiceDbImpl implements GraveService{
 
     @Override
     public Grave updateData(Grave grave) {
-        return graveRepository.save(grave);
+        getDataById(grave.getId());
+        graveRepository.save(grave);
+        return grave;
     }
 
     @Override

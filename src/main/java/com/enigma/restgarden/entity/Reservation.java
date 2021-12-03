@@ -41,7 +41,7 @@ public class Reservation {
         this.user = user;
         this.userName = user.getName();
         this.userBalance = userBalance;
-        this.expiredDate = new Timestamp(System.currentTimeMillis() + (1000*60));
+        this.expiredDate = new Timestamp(System.currentTimeMillis() + (1000*60*2));
         this.totalSlot = totalSlot;
         this.status = status;
         this.description = description;

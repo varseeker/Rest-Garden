@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReservationServiceDbImpl implements ReservationService{
@@ -32,7 +33,16 @@ public class ReservationServiceDbImpl implements ReservationService{
 
     @Override
     public Reservation getDataById(String id) {
-        return reservationRepository.getById(id);
+        Optional<Reservation> reservationOptional = isReservationExist(id);
+        return reservationOptional.get();
+    }
+
+    private Optional<Reservation> isReservationExist(String id) {
+        Optional<Reservation> reservationOptional = reservationRepository.findById(id);
+        if (!reservationOptional.isPresent()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cant find reservation with that id, please check and try again");
+        }
+        return reservationOptional;
     }
 
     @Override
@@ -42,9 +52,7 @@ public class ReservationServiceDbImpl implements ReservationService{
         for (Reservation data: dataReservation) {
             if (timestamp.after(data.getExpiredDate())){
                 data.getGrave().setAvailableSlots(data.getGrave().getAvailableSlots() + data.getTotalSlot());
-                deleteData(data.getId());
-            }else {
-                return reservationRepository.findAll();
+                deleteDataJustById(data.getId());
             }
         }
         return reservationRepository.findAll();
@@ -57,17 +65,26 @@ public class ReservationServiceDbImpl implements ReservationService{
 
     @Override
     public void deleteData(String id) {
+        Reservation data = getDataById(id);
+        data.getGrave().setAvailableSlots(data.getGrave().getAvailableSlots() + data.getTotalSlot());
+        reservationRepository.deleteById(data.getId());
+    }
+
+    public void deleteDataJustById(String id) {
         reservationRepository.deleteById(id);
     }
 
     @Override
     public Reservation updateData(Reservation reservation) {
-        return null;
+        getDataById(reservation.getId());
+        reservationRepository.save(reservation);
+        return reservation;
     }
 
     public Reservation updateDataWithDto(ReservationUpdateDTO reservationUpdateDTO) {
         Reservation reservation = getDataById(reservationUpdateDTO.getReservationId());
         Timestamp timestamp = new Timestamp(reservation.getExpiredDate().getTime()+(1000*60));
+        reservation.setUserBalance(reservationUpdateDTO.getUserBalance()+reservationUpdateDTO.getUserBalance());
         reservation.setExpiredDate(timestamp);
         return reservationRepository.save(reservation);
     }
@@ -82,10 +99,14 @@ public class ReservationServiceDbImpl implements ReservationService{
         if (slot < 0){
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "slot is unavailable or is full, please check and try again");
         }else {
-            Integer balance = reservationDto.getUserBalance() ;
             grave.setAvailableSlots(slot);
             Reservation reservation = new Reservation(grave, user, reservationDto.getUserBalance(), reservationDto.getTotalSlot(), reservationDto.getStatus(), reservationDto.getDescription() );
-            return reservationRepository.save(reservation);
+            reservation.setGravePrice(grave.getPrice()+500000);
+            if (reservationDto.getUserBalance() < reservation.getGravePrice()){
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN, "ur balance is lower than slot price, please check and try again");
+            }else {
+                return reservationRepository.save(reservation);
+            }
         }
     }
 }

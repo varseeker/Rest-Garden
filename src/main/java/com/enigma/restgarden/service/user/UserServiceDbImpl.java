@@ -22,16 +22,16 @@ public class UserServiceDbImpl implements UserService{
 
     @Override
     public User getDataById(String id) {
-        Optional<User> customerOptional = isUserExist(id);
-        return customerOptional.get();
+        Optional<User> userOptional = isUserExist(id);
+        return userOptional.get();
     }
 
     private Optional<User> isUserExist(String id) {
-        Optional<User> customerOptional = userRepository.findById(id);
-        if (!customerOptional.isPresent()){
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Already Have Merchant with that name, please use another name");
+        Optional<User> userOptional = userRepository.findById(id);
+        if (!userOptional.isPresent()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cant find user with that id, please check and try again");
         }
-        return customerOptional;
+        return userOptional;
     }
 
     @Override
@@ -50,9 +50,9 @@ public class UserServiceDbImpl implements UserService{
     }
 
     @Override
-    public User updateData(User customer) {
-        getDataById(customer.getId());
-        userRepository.save(customer);
-        return customer;
+    public User updateData(User user) {
+        getDataById(user.getId());
+        userRepository.save(user);
+        return user;
     }
 }

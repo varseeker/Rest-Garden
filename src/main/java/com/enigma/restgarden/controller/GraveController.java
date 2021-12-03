@@ -1,6 +1,7 @@
 package com.enigma.restgarden.controller;
 
 import com.enigma.restgarden.entity.Grave;
+import com.enigma.restgarden.entity.Reservation;
 import com.enigma.restgarden.service.grave.GraveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -8,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
 public class GraveController {
 
     @Autowired
@@ -28,6 +28,11 @@ public class GraveController {
     public Grave update(@RequestBody Grave grave){
         graveService.updateData(grave);
         return grave;
+    }
+
+    @GetMapping("/grave/{id}")
+    public Grave getByIdGrave(@PathVariable(name = "id") String id){
+        return graveService.getDataById(id);
     }
 
     @DeleteMapping("/grave/{id}")

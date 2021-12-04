@@ -1,5 +1,6 @@
 package com.enigma.restgarden.controller;
 
+import com.enigma.restgarden.dto.UserCredentials;
 import com.enigma.restgarden.entity.User;
 import com.enigma.restgarden.service.user.UserService;
 import com.enigma.restgarden.service.user.UserServiceDbImpl;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class UserController {
@@ -22,7 +24,7 @@ public class UserController {
         return userService.getAllData();
     }
 
-    @PostMapping("/user")
+    @PostMapping("/register")
     public User createUser(@RequestBody User user){
         return userService.createData(user);
     }
@@ -44,4 +46,8 @@ public class UserController {
         return user;
     }
 
+    @PostMapping("/signin")
+    public Map<String, Object> signInAccount(@RequestBody UserCredentials userCredentials){
+        return userServiceDb.signIn(userCredentials);
+    }
 }

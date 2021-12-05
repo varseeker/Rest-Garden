@@ -40,6 +40,18 @@ public class User {
     public User() {
     }
 
+    public User(String id, String name, String username, String password, String email, String phoneNumber, String address, List<Grave> graves, List<Grave> reservationGraves) {
+        this.id = id;
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.graves = graves;
+        this.reservationGraves = reservationGraves;
+    }
+
     public String getId() {
         return id;
     }

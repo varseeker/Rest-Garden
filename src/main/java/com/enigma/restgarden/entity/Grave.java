@@ -32,6 +32,19 @@ public class Grave {
     public Grave() {
     }
 
+    public Grave(String id, String name, Integer availableSlots, Integer price, String address, String phoneNumber, String type, String description, List<Corpse> corpses, List<User> user) {
+        this.id = id;
+        this.name = name;
+        this.availableSlots = availableSlots;
+        this.price = price;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.type = type;
+        this.description = description;
+        this.corpses = corpses;
+        this.user = user;
+    }
+
     public String getId() {
         return id;
     }

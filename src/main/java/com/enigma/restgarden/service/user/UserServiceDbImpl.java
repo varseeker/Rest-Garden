@@ -62,9 +62,10 @@ public class UserServiceDbImpl implements UserService{
 
     @Override
     public User createData(User user) {
-        if (userRepository.existsByUserName(user.getUsername()) || userRepository.existsByEmail(user.getEmail())){
+        if (userRepository.existsByUsername(user.getUsername()) || userRepository.existsByEmail(user.getEmail())){
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User with that name or email has exist, please check and try again");
         }else {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             return userRepository.save(user);
         }
     }
@@ -77,13 +78,14 @@ public class UserServiceDbImpl implements UserService{
     @Override
     public User updateData(User user) {
         getDataById(user.getId());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return user;
     }
 
     public Map<String, Object> signIn(UserCredentials userCredentials){
-        User user = userRepository.findUsersByUsernameAndPassword(userCredentials.getUserName(), userCredentials.getPassword());
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
+        User user = userRepository.findUsersByUsername(userCredentials.getUsername()).get();
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userCredentials.getUsername(), userCredentials.getPassword());
 
         authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 
@@ -92,6 +94,7 @@ public class UserServiceDbImpl implements UserService{
         String token = jwtTokenUtil.generateToken(userDetails);
 
         Map<String, Object> tokenWrapper = new HashMap<>();
+        tokenWrapper.put("id", user.getId());
         tokenWrapper.put("token", token);
 
         return tokenWrapper;

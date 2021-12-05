@@ -30,8 +30,9 @@ public class UserDetailServiceDbImpl implements UserDetailsService {
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         if (account.getUsername().equals("admin")){
             grantedAuthorities.add(new SimpleGrantedAuthority("Admin"));
+        }else {
+            grantedAuthorities.add(new SimpleGrantedAuthority("User"));
         }
-        grantedAuthorities.add(new SimpleGrantedAuthority("User"));
 
         UserDetails userDetails = new UserDetailImpl(account.getUsername(), account.getPassword(), grantedAuthorities);
         return userDetails;

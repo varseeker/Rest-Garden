@@ -38,11 +38,11 @@ public class BasicAuthenticationAdapter extends WebSecurityConfigurerAdapter {
         http.httpBasic().and().csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/register").permitAll()
-                .antMatchers("/signin").permitAll()
-                .antMatchers("/graves").permitAll()
-                .antMatchers("/grave").permitAll()
-                .antMatchers("/grave/**").permitAll()
+                .antMatchers("/api/register").permitAll()
+                .antMatchers("/api/signin").permitAll()
+                .antMatchers("/api/graves").permitAll()
+                .antMatchers("/api/grave").permitAll()
+                .antMatchers("/api/grave/**").permitAll()
                 .anyRequest().authenticated()
                 .and().addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 

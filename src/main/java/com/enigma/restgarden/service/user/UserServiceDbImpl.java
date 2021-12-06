@@ -84,15 +84,14 @@ public class UserServiceDbImpl implements UserService{
     }
 
     public Map<String, Object> signIn(UserCredentials userCredentials){
-        User user = userRepository.findUsersByUsername(userCredentials.getUsername()).get();
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userCredentials.getUsername(), userCredentials.getPassword());
-
         authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 
-        UserDetails userDetails = userDetailServiceDb.loadUserByUsername(user.getUsername());
+        UserDetails userDetails = userDetailServiceDb.loadUserByUsername(userCredentials.getUsername());
 
         String token = jwtTokenUtil.generateToken(userDetails);
 
+        User user = userRepository.findUsersByUsername(userCredentials.getUsername()).get();
         Map<String, Object> tokenWrapper = new HashMap<>();
         tokenWrapper.put("id", user.getId());
         tokenWrapper.put("token", token);

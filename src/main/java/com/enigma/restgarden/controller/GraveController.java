@@ -2,10 +2,13 @@ package com.enigma.restgarden.controller;
 
 import com.enigma.restgarden.entity.Grave;
 import com.enigma.restgarden.entity.Reservation;
+import com.enigma.restgarden.service.StorageService;
 import com.enigma.restgarden.service.grave.GraveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -14,6 +17,9 @@ public class GraveController {
 
     @Autowired
     GraveService graveService;
+
+    @Autowired
+    StorageService storageService;
 
     @GetMapping("/graves")
     public List<Grave> findAll(){
@@ -45,5 +51,10 @@ public class GraveController {
     @GetMapping("/graves/{name}")
     public List<Grave> findByNameAndAdress(@PathVariable(name = "name") String name){
         return graveService.searchByNameAndAddress(name);
+    }
+
+    @PostMapping("/upload/{id}")
+    public void uploadProfilePicture(@RequestPart(name = "file") MultipartFile multipartFile, @PathVariable(name = "id") String id) throws IOException {
+        storageService.saveFileTo(multipartFile, id);
     }
 }

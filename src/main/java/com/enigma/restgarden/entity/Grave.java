@@ -62,7 +62,7 @@ public class Grave {
     }
 
     public Integer getAvailableSlots() {
-        return availableSlots-user.size();
+        return availableSlots;
     }
 
     public void setAvailableSlots(Integer availableSlots) {

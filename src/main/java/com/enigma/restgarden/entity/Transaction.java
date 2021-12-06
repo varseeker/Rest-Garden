@@ -28,6 +28,7 @@ public class Transaction {
 
     private Integer totalSlot;
     private Timestamp date;
+    private Integer totalPayment;
     private String description;
 
     public Transaction() {

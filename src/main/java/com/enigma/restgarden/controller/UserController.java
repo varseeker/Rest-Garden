@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/api")
 public class UserController {
 
     @Autowired
@@ -22,6 +23,11 @@ public class UserController {
     @GetMapping("/users")
     public List<User> findAll(){
         return userService.getAllData();
+    }
+
+    @GetMapping("/user/{id}")
+    public User getUserById(@PathVariable(name = "id") String id){
+        return userService.getDataById(id);
     }
 
     @PostMapping("/register")

@@ -29,6 +29,7 @@ public class Reservation {
     private Integer totalSlot;
     private String status;
     private Timestamp expiredDate;
+    private Integer totalPayment;
     private String description;
 
     public Reservation() {

@@ -12,7 +12,8 @@ public class ResourcesConfiguration implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
-                .addResourceHandler("/**")
+                .addResourceHandler("/picture/**")
                 .addResourceLocations("file:/home/dell/Academy/Pascal-7/RestGarden/upload-img/");
+
     }
 }

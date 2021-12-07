@@ -1,7 +1,6 @@
 package com.enigma.restgarden.controller;
 
 import com.enigma.restgarden.entity.Grave;
-import com.enigma.restgarden.entity.Reservation;
 import com.enigma.restgarden.service.StorageService;
 import com.enigma.restgarden.service.grave.GraveService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,6 +2,7 @@ package com.enigma.restgarden.service.transaction;
 
 import com.enigma.restgarden.dto.TransactionDTO;
 import com.enigma.restgarden.entity.Grave;
+import com.enigma.restgarden.entity.Reservation;
 import com.enigma.restgarden.entity.Transaction;
 import com.enigma.restgarden.entity.User;
 import com.enigma.restgarden.repo.TransactionRepository;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,6 +45,14 @@ public class TransactionServiceDbImpl implements TransactionService{
 
     @Override
     public List<Transaction> getAllData() {
+        List<Transaction> dataTransaction = transactionRepository.findAll();
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        for (Transaction data: dataTransaction) {
+            if (timestamp.after(data.getExpiredDate())){
+                data.getGrave().setAvailableSlots(data.getGrave().getAvailableSlots() + data.getTotalSlot());
+                deleteData(data.getId());
+            }
+        }
         return transactionRepository.findAll();
     }
 

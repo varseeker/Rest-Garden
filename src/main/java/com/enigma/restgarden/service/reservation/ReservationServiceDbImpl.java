@@ -50,7 +50,7 @@ public class ReservationServiceDbImpl implements ReservationService{
         List<Reservation> dataReservation = reservationRepository.findAll();
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         for (Reservation data: dataReservation) {
-            if (timestamp.after(data.getExpiredDate())){
+            if (timestamp.after(data.getExpiredDate()) || data.getStatus().equals("Check-In")){
                 data.getGrave().setAvailableSlots(data.getGrave().getAvailableSlots() + data.getTotalSlot());
                 deleteDataJustById(data.getId());
             }
@@ -83,9 +83,14 @@ public class ReservationServiceDbImpl implements ReservationService{
 
     public Reservation updateDataWithDto(ReservationUpdateDTO reservationUpdateDTO) {
         Reservation reservation = getDataById(reservationUpdateDTO.getReservationId());
-        Timestamp timestamp = new Timestamp(reservation.getExpiredDate().getTime()+(1000*60));
-        reservation.setUserBalance(reservationUpdateDTO.getUserBalance()+reservationUpdateDTO.getUserBalance());
+        Timestamp timestamp = new Timestamp(reservation.getExpiredDate().getTime()+(1000*60*5));
         reservation.setExpiredDate(timestamp);
+        return reservationRepository.save(reservation);
+    }
+
+    public Reservation checkIn(ReservationUpdateDTO reservationUpdateDTO) {
+        Reservation reservation = getDataById(reservationUpdateDTO.getReservationId());
+        reservation.setStatus("Check-In");
         return reservationRepository.save(reservation);
     }
 
@@ -100,13 +105,14 @@ public class ReservationServiceDbImpl implements ReservationService{
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "slot is unavailable or is full, please check and try again");
         }else {
             grave.setAvailableSlots(slot);
-            Reservation reservation = new Reservation(grave, user, reservationDto.getUserBalance(), reservationDto.getTotalSlot(), reservationDto.getStatus(), reservationDto.getDescription() );
-            reservation.setGravePrice(grave.getPrice()+500000);
-            if (reservationDto.getUserBalance() < reservation.getGravePrice()){
-                throw new ResponseStatusException(HttpStatus.FORBIDDEN, "ur balance is lower than slot price, please check and try again");
-            }else {
-                return reservationRepository.save(reservation);
-            }
+            Reservation reservation = new Reservation(grave, user, reservationDto.getTotalSlot(), reservationDto.getStatus(), reservationDto.getDescription() );
+            reservation.setGravePrice(grave.getPrice());
+            Double bookingFee = reservation.getGravePrice() * 0.2;
+            reservation.setTotalPayment(bookingFee);
+
+            reservation.setStatus("Reserved");
+
+            return reservationRepository.save(reservation);
         }
     }
 }

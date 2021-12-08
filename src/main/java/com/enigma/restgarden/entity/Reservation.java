@@ -24,24 +24,22 @@ public class Reservation {
     @JoinColumn(name = "user_id")
     private User user;
     private String userName;
-    private Integer userBalance;
 
     private Integer totalSlot;
     private String status;
     private Timestamp expiredDate;
-    private Integer totalPayment;
+    private Double totalPayment;
     private String description;
 
     public Reservation() {
     }
 
-    public Reservation(Grave grave, User user, Integer userBalance, Integer totalSlot, String status, String description) {
+    public Reservation(Grave grave, User user, Integer totalSlot, String status, String description) {
         this.grave = grave;
         this.graveName = grave.getName();
         this.gravePrice = grave.getPrice();
         this.user = user;
         this.userName = user.getName();
-        this.userBalance = userBalance;
         this.expiredDate = new Timestamp(System.currentTimeMillis() + (1000*60*2));
         this.totalSlot = totalSlot;
         this.status = status;
@@ -130,11 +128,11 @@ public class Reservation {
         this.gravePrice = gravePrice;
     }
 
-    public Integer getUserBalance() {
-        return userBalance;
+    public Double getTotalPayment() {
+        return totalPayment;
     }
 
-    public void setUserBalance(Integer userBalance) {
-        this.userBalance = userBalance;
+    public void setTotalPayment(Double totalPayment) {
+        this.totalPayment = totalPayment;
     }
 }

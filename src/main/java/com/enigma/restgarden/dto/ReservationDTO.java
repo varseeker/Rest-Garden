@@ -7,9 +7,9 @@ public class ReservationDTO {
     private Integer totalSlot;
     private String status;
     private String description;
-    private Integer userBalance;
 
     public ReservationDTO() {
+
     }
 
     public String getGraveId() {
@@ -50,13 +50,5 @@ public class ReservationDTO {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Integer getUserBalance() {
-        return userBalance;
-    }
-
-    public void setUserBalance(Integer userBalance) {
-        this.userBalance = userBalance;
     }
 }

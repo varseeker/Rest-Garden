@@ -28,7 +28,6 @@ public class Transaction {
 
     private Integer totalSlot;
     private Timestamp expiredDate;
-    private Integer totalPayment;
     private String description;
 
     public Transaction() {

@@ -40,7 +40,7 @@ public class Reservation {
         this.gravePrice = grave.getPrice();
         this.user = user;
         this.userName = user.getName();
-        this.expiredDate = new Timestamp(System.currentTimeMillis() + (1000*60*2));
+        this.expiredDate = new Timestamp(System.currentTimeMillis() + (1000*60*5));
         this.totalSlot = totalSlot;
         this.status = status;
         this.description = description;

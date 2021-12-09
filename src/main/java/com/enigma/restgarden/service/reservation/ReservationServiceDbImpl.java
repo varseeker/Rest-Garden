@@ -108,7 +108,7 @@ public class ReservationServiceDbImpl implements ReservationService{
             Reservation reservation = new Reservation(grave, user, reservationDto.getTotalSlot(), reservationDto.getStatus(), reservationDto.getDescription() );
             reservation.setGravePrice(grave.getPrice());
             Double bookingFee = reservation.getGravePrice() * 0.2;
-            reservation.setTotalPayment(bookingFee);
+            reservation.setTotalPayment(reservation.getGravePrice()+bookingFee);
 
             reservation.setStatus("Reserved");
 

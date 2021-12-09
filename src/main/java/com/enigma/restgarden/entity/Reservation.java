@@ -18,6 +18,7 @@ public class Reservation {
     @JoinColumn(name = "grave_id")
     private Grave grave;
     private String graveName;
+    private String graveAddress;
     private Integer gravePrice;
 
     @ManyToOne
@@ -38,6 +39,7 @@ public class Reservation {
         this.grave = grave;
         this.graveName = grave.getName();
         this.gravePrice = grave.getPrice();
+        this.graveAddress = grave.getAddress();
         this.user = user;
         this.userName = user.getName();
         this.expiredDate = new Timestamp(System.currentTimeMillis() + (1000*60*5));
@@ -134,5 +136,13 @@ public class Reservation {
 
     public void setTotalPayment(Double totalPayment) {
         this.totalPayment = totalPayment;
+    }
+
+    public String getGraveAddress() {
+        return graveAddress;
+    }
+
+    public void setGraveAddress(String graveAddress) {
+        this.graveAddress = graveAddress;
     }
 }

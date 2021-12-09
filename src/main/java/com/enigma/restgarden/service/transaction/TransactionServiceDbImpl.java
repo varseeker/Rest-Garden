@@ -81,9 +81,8 @@ public class TransactionServiceDbImpl implements TransactionService{
         if (slot < 0){
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "slot is unavailable or is full, please check and try again");
         }else {
-            Integer balance = transactionDto.getBalance() ;
             grave.setAvailableSlots(slot);
-            Transaction transaction = new Transaction(user, grave, transactionDto.getTotalSlot(), transactionDto.getBalance(), transactionDto.getCurrentDate(), transactionDto.getDescription());
+            Transaction transaction = new Transaction(user, grave, transactionDto.getTotalSlot(), transactionDto.getDescription());
             return transactionRepository.save(transaction);
         }
     }

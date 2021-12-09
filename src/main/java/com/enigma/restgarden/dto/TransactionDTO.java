@@ -7,8 +7,6 @@ public class TransactionDTO {
     private String graveId;
 
     private Integer totalSlot;
-    private Integer balance;
-    private Timestamp currentDate = new Timestamp(System.currentTimeMillis());
     private String description;
 
     public TransactionDTO() {
@@ -36,22 +34,6 @@ public class TransactionDTO {
 
     public void setTotalSlot(Integer totalSlot) {
         this.totalSlot = totalSlot;
-    }
-
-    public Integer getBalance() {
-        return balance;
-    }
-
-    public void setBalance(Integer balance) {
-        this.balance = balance;
-    }
-
-    public Timestamp getCurrentDate() {
-        return currentDate;
-    }
-
-    public void setCurrentDate(Timestamp currentDate) {
-        this.currentDate = currentDate;
     }
 
     public String getDescription() {

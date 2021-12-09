@@ -18,13 +18,13 @@ public class Transaction {
     @JoinColumn(name = "user_id")
     private User user;
     private String userName;
-    private Integer userBalance;
 
     @ManyToOne
     @JoinColumn(name = "grave_id")
     private Grave grave;
     private String graveName;
     private Integer gravePrice;
+    private String graveAddress;
 
     private Integer totalSlot;
     private Timestamp expiredDate;
@@ -33,15 +33,15 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(User user, Grave grave, Integer totalSlot, Integer userBalance, Timestamp date, String description) {
+    public Transaction(User user, Grave grave, Integer totalSlot, String description) {
         this.user = user;
         this.userName = user.getName();
         this.grave = grave;
         this.graveName = grave.getName();
+        this.graveAddress = grave.getAddress();
         this.totalSlot = totalSlot;
         this.gravePrice = grave.getPrice();
         this.expiredDate = new Timestamp(System.currentTimeMillis() + (1000*60*2));
-        this.userBalance = userBalance;
         this.description = description;
     }
 
@@ -119,11 +119,15 @@ public class Transaction {
         this.expiredDate = expiredDate;
     }
 
-    public Integer getUserBalance() {
-        return userBalance;
+    public String getGraveAddress() {
+        return graveAddress;
     }
 
-    public void setUserBalance(Integer userBalance) {
-        this.userBalance = userBalance;
+    public void setGraveAddress(String graveAddress) {
+        this.graveAddress = graveAddress;
+    }
+
+    public void setExpiredDate(Timestamp expiredDate) {
+        this.expiredDate = expiredDate;
     }
 }

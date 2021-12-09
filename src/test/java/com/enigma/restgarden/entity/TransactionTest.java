@@ -13,7 +13,7 @@ class TransactionTest {
         User user = new User();
         Grave grave = new Grave();
         Timestamp date = new Timestamp(System.currentTimeMillis());
-        Transaction transaction = new Transaction(user, grave, 3, 50000, date, "apa");
+        Transaction transaction = new Transaction(user, grave, 3, "apa");
         assertNotNull(transaction);
     }
 
@@ -21,8 +21,7 @@ class TransactionTest {
     public void getTotalSlot_returnThreeWhenGiven_3In_totalSLot() {
         User user = new User();
         Grave grave = new Grave();
-        Timestamp date = new Timestamp(System.currentTimeMillis());
-        Transaction transaction = new Transaction(user, grave, 3, 50000, date, "apa");
+        Transaction transaction = new Transaction(user, grave, 3, "apa");
         assertEquals(transaction.getTotalSlot(), 3);
     }
 
@@ -31,17 +30,8 @@ class TransactionTest {
         User user = new User();
         Grave grave = new Grave();
         Timestamp date = new Timestamp(System.currentTimeMillis());
-        Transaction transaction = new Transaction(user, grave, 2, 50000, date, "apa");
+        Transaction transaction = new Transaction(user, grave, 2, "apa");
         assertNotEquals(transaction.getTotalSlot(), 3);
-    }
-
-    @Test
-    public void getUserBalance_returnTenThousandWhenGiven_10000_userBalance() {
-        User user = new User();
-        Grave grave = new Grave();
-        Timestamp date = new Timestamp(System.currentTimeMillis());
-        Transaction transaction = new Transaction(user, grave, 3, 10000, date, "apa");
-        assertEquals(transaction.getUserBalance(), 10000);
     }
 
     @Test
@@ -50,7 +40,7 @@ class TransactionTest {
         Grave grave = new Grave();
         Timestamp date = new Timestamp(System.currentTimeMillis());
         Timestamp dateExpected = new Timestamp(System.currentTimeMillis());
-        Transaction transaction = new Transaction(user, grave, 3, 50000, date, "apa");
+        Transaction transaction = new Transaction(user, grave, 3, "apa");
         assertEquals(transaction.getExpiredDate(), dateExpected);
     }
 
@@ -59,7 +49,7 @@ class TransactionTest {
         User user = new User();
         Grave grave = new Grave();
         Timestamp date = new Timestamp(System.currentTimeMillis());
-        Transaction transaction = new Transaction(user, grave, 3, 10000, date, "GRAVE");
+        Transaction transaction = new Transaction(user, grave, 3, "GRAVE");
         assertEquals(transaction.getDescription(), "GRAVE");
     }
 
@@ -68,18 +58,8 @@ class TransactionTest {
         User user = new User();
         Grave grave = new Grave();
         Timestamp date = new Timestamp(System.currentTimeMillis());
-        Transaction transaction = new Transaction(user, grave, 3, 10000, date, "GRAVE");
+        Transaction transaction = new Transaction(user, grave, 3, "GRAVE");
         transaction.setTotalSlot(5);
         assertEquals(transaction.getTotalSlot(), 5);
-    }
-
-    @Test
-    public void setUserBalance_AbleToChangeValueUserBalance_fromTenThousand_ToFiveThousand() {
-        User user = new User();
-        Grave grave = new Grave();
-        Timestamp date = new Timestamp(System.currentTimeMillis());
-        Transaction transaction = new Transaction(user, grave, 3, 10000, date, "GRAVE");
-        transaction.setUserBalance(50000);
-        assertEquals(transaction.getUserBalance(), 50000);
     }
 }

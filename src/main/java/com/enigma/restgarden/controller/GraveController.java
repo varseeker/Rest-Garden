@@ -3,6 +3,7 @@ package com.enigma.restgarden.controller;
 import com.enigma.restgarden.entity.Grave;
 import com.enigma.restgarden.service.StorageService;
 import com.enigma.restgarden.service.grave.GraveService;
+import com.sun.istack.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -52,8 +53,8 @@ public class GraveController {
         return graveService.searchByNameAndAddress(name);
     }
 
-    @PostMapping("/upload/{id}")
-    public void uploadProfilePicture(@RequestPart(name = "file") MultipartFile multipartFile, @PathVariable(name = "id") String id) throws IOException {
-        storageService.saveFileTo(multipartFile, id);
+    @PostMapping("/register/upload")
+    public Grave createUser(@RequestPart Grave grave, @Nullable @RequestPart("file") MultipartFile multipartFile) throws IOException {
+        return graveService.createWithFile(grave, multipartFile);
     }
 }

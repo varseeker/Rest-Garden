@@ -21,6 +21,7 @@ public class Grave {
     private String phoneNumber;
     private String type;
     private String description;
+    private String image;
 
     @OneToMany(mappedBy = "grave", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<Corpse> corpses = new ArrayList<>();
@@ -125,5 +126,13 @@ public class Grave {
 
     public void setPrice(Integer price) {
         this.price = price;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

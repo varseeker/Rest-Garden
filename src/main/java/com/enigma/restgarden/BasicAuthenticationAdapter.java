@@ -43,6 +43,7 @@ public class BasicAuthenticationAdapter extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/graves").permitAll()
                 .antMatchers("/api/grave").permitAll()
                 .antMatchers("/api/grave/**").permitAll()
+                .antMatchers("/picture/**").permitAll()
                 .anyRequest().authenticated()
                 .and().addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 

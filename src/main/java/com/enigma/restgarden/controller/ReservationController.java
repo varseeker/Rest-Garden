@@ -44,8 +44,13 @@ public class ReservationController {
     }
 
     @GetMapping("/reservation/{id}")
-    public Reservation getByIdGrave(@PathVariable(name = "id") String id){
+    public Reservation getById(@PathVariable(name = "id") String id){
         return reservationServiceDb.getDataById(id);
+    }
+
+    @GetMapping("/reservation/user/{idUser}")
+    public List<Reservation> getByIdUser(@PathVariable(name = "idUser") String id){
+        return reservationServiceDb.getAllReservationByUser(id);
     }
 
     @DeleteMapping("/reservation/{id}")

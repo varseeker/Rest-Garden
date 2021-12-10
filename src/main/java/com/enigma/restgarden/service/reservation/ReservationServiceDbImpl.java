@@ -31,6 +31,7 @@ public class ReservationServiceDbImpl implements ReservationService{
     @Autowired
     GraveServiceDbImpl graveServiceDb;
 
+
     @Override
     public Reservation getDataById(String id) {
         Optional<Reservation> reservationOptional = isReservationExist(id);
@@ -114,5 +115,10 @@ public class ReservationServiceDbImpl implements ReservationService{
 
             return reservationRepository.save(reservation);
         }
+    }
+
+    public List<Reservation> getAllReservationByUser(String id){
+        User user = userServiceDb.getDataById(id);
+        return reservationRepository.findAllByUser(user);
     }
 }

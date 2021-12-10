@@ -71,8 +71,8 @@ public class Corpse {
         this.date = date;
     }
 
-    public String getGrave() {
-        return grave.getId();
+    public Grave getGrave() {
+        return this.grave;
     }
 
     public void setGrave(Grave grave) {

@@ -1,6 +1,5 @@
 package com.enigma.restgarden.dto;
 
-import java.sql.Timestamp;
 
 public class TransactionDTO {
     private String userId;

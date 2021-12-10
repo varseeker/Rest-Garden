@@ -110,6 +110,7 @@ public class Grave {
         this.description = description;
     }
 
+    @JsonIgnore
     public List<Corpse> getCorpses() {
         return corpses;
     }

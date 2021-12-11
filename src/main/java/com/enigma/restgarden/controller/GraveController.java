@@ -3,6 +3,7 @@ package com.enigma.restgarden.controller;
 import com.enigma.restgarden.entity.Grave;
 import com.enigma.restgarden.service.StorageService;
 import com.enigma.restgarden.service.grave.GraveService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.istack.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,9 @@ public class GraveController {
 
     @Autowired
     StorageService storageService;
+
+    @Autowired
+    ObjectMapper objectMapper;
 
     @GetMapping("/graves")
     public List<Grave> findAll(){
@@ -54,7 +58,8 @@ public class GraveController {
     }
 
     @PostMapping("/register/upload")
-    public Grave createUser(@RequestPart Grave grave, @Nullable @RequestPart("file") MultipartFile multipartFile) throws IOException {
+    public Grave createUser(@RequestPart String graveString, @Nullable @RequestPart("file") MultipartFile multipartFile) throws IOException {
+        Grave grave = objectMapper.readValue(graveString, Grave.class);
         return graveService.createWithFile(grave, multipartFile);
     }
 }

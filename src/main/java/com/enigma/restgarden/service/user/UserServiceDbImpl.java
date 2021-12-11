@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
-public class UserServiceDbImpl implements UserService{
+public class UserServiceDbImpl implements UserService {
 
     @Autowired
     UserRepository userRepository;
@@ -49,7 +49,7 @@ public class UserServiceDbImpl implements UserService{
 
     private Optional<User> isUserExist(String id) {
         Optional<User> userOptional = userRepository.findById(id);
-        if (!userOptional.isPresent()){
+        if (!userOptional.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cant find user with that id, please check and try again");
         }
         return userOptional;
@@ -62,12 +62,12 @@ public class UserServiceDbImpl implements UserService{
 
     @Override
     public User createData(User user) {
-        if (user.getUsername().isEmpty() || user.getName().isEmpty() || user.getPhoneNumber().isEmpty()){
+        if (user.getUsername().isEmpty() || user.getName().isEmpty() || user.getPhoneNumber().isEmpty()) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Please fill the form to register, please try again");
-        }else {
-            if (userRepository.existsByUsername(user.getUsername()) || userRepository.existsByEmail(user.getEmail())){
+        } else {
+            if (userRepository.existsByUsername(user.getUsername()) || userRepository.existsByEmail(user.getEmail())) {
                 throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User with that name or email has exist, please check and try again");
-            }else {
+            } else {
                 user.setPassword(passwordEncoder.encode(user.getPassword()));
                 return userRepository.save(user);
             }
@@ -82,15 +82,14 @@ public class UserServiceDbImpl implements UserService{
     @Override
     public User updateData(User user) {
         getDataById(user.getId());
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return user;
     }
 
-    public Map<String, Object> signIn(UserCredentials userCredentials){
-        if (userCredentials.getUsername().isEmpty() || userCredentials.getPassword().isEmpty()){
+    public Map<String, Object> signIn(UserCredentials userCredentials) {
+        if (userCredentials.getUsername().isEmpty() || userCredentials.getPassword().isEmpty()) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Username and Password must fill, please check and try again");
-        }else {
+        } else {
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userCredentials.getUsername(), userCredentials.getPassword());
             authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 

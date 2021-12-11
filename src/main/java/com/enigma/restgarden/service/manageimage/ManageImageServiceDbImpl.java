@@ -72,8 +72,8 @@ public class ManageImageServiceDbImpl implements ManageImageService {
 
     public void validateFileExtension(String ext){
         ext = ext.toUpperCase();
-        if (!(ext.equals("JPG") || ext.equals("PNG") || ext.equals("JPEG"))){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cant set image with that extension, please check and try again");
+        if (!((ext.equals("JPG")) || (ext.equals("PNG")) || (ext.equals("JPEG")))){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Cant set image with that extension, please check and try again");
         }
     }
 

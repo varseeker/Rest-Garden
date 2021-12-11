@@ -23,10 +23,10 @@ public class Grave {
     private String description;
     private String image;
 
-    @OneToMany(mappedBy = "grave", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "grave", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<Corpse> corpses = new ArrayList<>();
 
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToMany
     @JoinColumn(name = "user_id", nullable = false)
     private List<User> user;
 

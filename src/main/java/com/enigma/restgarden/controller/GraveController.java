@@ -58,7 +58,7 @@ public class GraveController {
     }
 
     @PostMapping("/register/upload")
-    public Grave createUser(@RequestPart String graveString, @Nullable @RequestPart("file") MultipartFile multipartFile) throws IOException {
+    public Grave createUser(@RequestPart String graveString, @Nullable @RequestPart("image") MultipartFile multipartFile) throws IOException {
         Grave grave = objectMapper.readValue(graveString, Grave.class);
         return graveService.createWithFile(grave, multipartFile);
     }

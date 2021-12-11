@@ -17,7 +17,7 @@ public class Corpse {
     private String location;
     private Timestamp date = new Timestamp(System.currentTimeMillis());
 
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.ALL})
     @JoinColumn(name = "grave_id", nullable = true)
     private Grave grave;
 

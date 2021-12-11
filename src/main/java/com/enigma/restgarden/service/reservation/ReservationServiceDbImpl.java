@@ -49,7 +49,7 @@ public class ReservationServiceDbImpl implements ReservationService{
         List<Reservation> dataReservation = reservationRepository.findAll();
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         for (Reservation data: dataReservation) {
-            if (timestamp.after(data.getExpiredDate()) || data.getStatus().equals("Check-In")){
+            if (timestamp.after(data.getExpiredDate()) || data.getStatus().equals("Assign")){
                 data.getGrave().setAvailableSlots(data.getGrave().getAvailableSlots() + data.getTotalSlot());
                 deleteDataJustById(data.getId());
             }
@@ -89,7 +89,7 @@ public class ReservationServiceDbImpl implements ReservationService{
 
     public Reservation checkIn(ReservationUpdateDTO reservationUpdateDTO) {
         Reservation reservation = getDataById(reservationUpdateDTO.getReservationId());
-        reservation.setStatus("Check-In");
+        reservation.setStatus("Assign");
         return reservationRepository.save(reservation);
     }
 

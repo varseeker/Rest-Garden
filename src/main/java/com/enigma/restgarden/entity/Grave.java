@@ -26,7 +26,7 @@ public class Grave {
     @OneToMany(mappedBy = "grave", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<Corpse> corpses = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "user_id", nullable = false)
     private List<User> user;
 

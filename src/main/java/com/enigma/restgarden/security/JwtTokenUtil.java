@@ -32,7 +32,7 @@ public class JwtTokenUtil {
                 .setClaims(claims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis()+(5*60*100000)))
+                .setExpiration(new Date(System.currentTimeMillis()+(((60*60)*1000)*5)))
                 .signWith(SignatureAlgorithm.HS512, secret).compact();
         return token;
     }

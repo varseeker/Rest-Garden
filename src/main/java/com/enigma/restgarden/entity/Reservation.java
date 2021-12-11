@@ -19,6 +19,7 @@ public class Reservation {
     private Grave grave;
     private String graveName;
     private String graveAddress;
+    private String image;
     private Integer gravePrice;
 
     @ManyToOne
@@ -40,6 +41,7 @@ public class Reservation {
         this.graveName = grave.getName();
         this.gravePrice = grave.getPrice();
         this.graveAddress = grave.getAddress();
+        this.image = grave.getImage();
         this.user = user;
         this.userName = user.getName();
         this.expiredDate = new Timestamp(System.currentTimeMillis() + (1000*60*5));
@@ -144,5 +146,13 @@ public class Reservation {
 
     public void setGraveAddress(String graveAddress) {
         this.graveAddress = graveAddress;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

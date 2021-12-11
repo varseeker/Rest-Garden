@@ -19,7 +19,7 @@ public class Transaction {
     private User user;
     private String userName;
 
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "grave_id")
     private Grave grave;
     private String graveName;

@@ -14,7 +14,7 @@ public class Reservation {
     @GenericGenerator(name = "uuid_generator", strategy = "uuid")
     private String id;
 
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "grave_id")
     private Grave grave;
     private String graveName;

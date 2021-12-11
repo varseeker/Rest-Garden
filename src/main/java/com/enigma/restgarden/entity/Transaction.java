@@ -14,12 +14,12 @@ public class Transaction {
     @GenericGenerator(name = "uuid_generator", strategy = "uuid")
     private String id;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "user_id")
     private User user;
     private String userName;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "grave_id")
     private Grave grave;
     private String graveName;

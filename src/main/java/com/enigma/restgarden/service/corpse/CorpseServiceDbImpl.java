@@ -7,7 +7,9 @@ import com.enigma.restgarden.entity.Grave;
 import com.enigma.restgarden.repo.CorpseRepository;
 import com.enigma.restgarden.service.grave.GraveService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -47,10 +49,14 @@ public class CorpseServiceDbImpl implements CorpseService {
     }
 
     public Corpse createDataWithDto(CorpseDTO corpseDto) {
-        Grave grave = graveService.getDataById(corpseDto.getGraveId());
-        Corpse corpse = new Corpse(corpseDto.getName(), corpseDto.getParentName(), corpseDto.getLocation(), grave);
-        corpseRepository.save(corpse);
-        return corpse;
+        if (corpseDto.getName().isEmpty()){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Cant let name is empty, please fill it and try again");
+        }else {
+            Grave grave = graveService.getDataById(corpseDto.getGraveId());
+            Corpse corpse = new Corpse(corpseDto.getName(), corpseDto.getParentName(), corpseDto.getLocation(), grave);
+            corpseRepository.save(corpse);
+            return corpse;
+        }
     }
 
     public Corpse updateDataWithDto(CorpseUpdateDTO corpseUpdateDTO) {

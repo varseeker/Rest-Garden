@@ -62,11 +62,15 @@ public class UserServiceDbImpl implements UserService{
 
     @Override
     public User createData(User user) {
-        if (userRepository.existsByUsername(user.getUsername()) || userRepository.existsByEmail(user.getEmail())){
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User with that name or email has exist, please check and try again");
+        if (user.getUsername().isEmpty() || user.getName().isEmpty() || user.getPhoneNumber().isEmpty()){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Please fill the form to register, please try again");
         }else {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            return userRepository.save(user);
+            if (userRepository.existsByUsername(user.getUsername()) || userRepository.existsByEmail(user.getEmail())){
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User with that name or email has exist, please check and try again");
+            }else {
+                user.setPassword(passwordEncoder.encode(user.getPassword()));
+                return userRepository.save(user);
+            }
         }
     }
 

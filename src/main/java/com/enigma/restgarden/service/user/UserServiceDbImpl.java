@@ -88,18 +88,22 @@ public class UserServiceDbImpl implements UserService{
     }
 
     public Map<String, Object> signIn(UserCredentials userCredentials){
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userCredentials.getUsername(), userCredentials.getPassword());
-        authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+        if (userCredentials.getUsername().isEmpty() || userCredentials.getPassword().isEmpty()){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Username and Password must fill, please check and try again");
+        }else {
+            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userCredentials.getUsername(), userCredentials.getPassword());
+            authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 
-        UserDetails userDetails = userDetailServiceDb.loadUserByUsername(userCredentials.getUsername());
+            UserDetails userDetails = userDetailServiceDb.loadUserByUsername(userCredentials.getUsername());
 
-        String token = jwtTokenUtil.generateToken(userDetails);
+            String token = jwtTokenUtil.generateToken(userDetails);
 
-        User user = userRepository.findUsersByUsername(userCredentials.getUsername()).get();
-        Map<String, Object> tokenWrapper = new HashMap<>();
-        tokenWrapper.put("id", user.getId());
-        tokenWrapper.put("token", token);
+            User user = userRepository.findUsersByUsername(userCredentials.getUsername()).get();
+            Map<String, Object> tokenWrapper = new HashMap<>();
+            tokenWrapper.put("id", user.getId());
+            tokenWrapper.put("token", token);
 
-        return tokenWrapper;
+            return tokenWrapper;
+        }
     }
 }

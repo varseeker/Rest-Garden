@@ -25,6 +25,9 @@ public class CorpseController {
     @GetMapping("/corpse/{id}")
     public Corpse getCorpse(@PathVariable(name = "id") String id) {return corpseServiceDb.getDataById(id); }
 
+    @DeleteMapping("/corpse/{id}")
+    public void deleteCorpse(@PathVariable(name = "id") String id) { corpseServiceDb.deleteData(id); }
+
     @PostMapping("/corpse")
     public Corpse addCorpse(@RequestBody CorpseDTO corpseDto){
         return corpseServiceDb.createDataWithDto(corpseDto);

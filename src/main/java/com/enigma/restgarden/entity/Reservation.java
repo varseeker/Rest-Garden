@@ -30,7 +30,7 @@ public class Reservation {
     private Integer totalSlot;
     private String status;
     private Timestamp expiredDate;
-    private Double totalPayment;
+    private Integer totalPayment;
     private String description;
 
     public Reservation() {
@@ -132,11 +132,11 @@ public class Reservation {
         this.gravePrice = gravePrice;
     }
 
-    public Double getTotalPayment() {
+    public Integer getTotalPayment() {
         return totalPayment;
     }
 
-    public void setTotalPayment(Double totalPayment) {
+    public void setTotalPayment(Integer totalPayment) {
         this.totalPayment = totalPayment;
     }
 

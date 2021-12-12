@@ -23,6 +23,11 @@ public class ReservationController {
         return reservationServiceDb.getAllData();
     }
 
+    @GetMapping("/reservations/reserve")
+    public List<Reservation> findAllReserve(){
+        return reservationServiceDb.getAllDataReserve();
+    }
+
     @PostMapping("/reservation")
     public Reservation create(@RequestBody ReservationDTO reservationDto){
         return reservationServiceDb.createDataWithDto(reservationDto);

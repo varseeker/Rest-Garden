@@ -54,11 +54,10 @@ public class ReservationServiceDbImpl implements ReservationService{
                 deleteDataJustById(data.getId());
             }
         }
-        List<Reservation> dataStatus = reservationRepository.findAllByStatus("Assign");
-        for (Reservation data: dataStatus) {
-            deleteDataJustById(data.getId());
-        }
         return reservationRepository.findAll();
+    }
+    public List<Reservation> getAllDataReserve() {
+        return reservationRepository.findAllByStatus("Reserved");
     }
 
     @Override

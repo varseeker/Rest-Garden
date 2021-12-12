@@ -73,9 +73,6 @@ public class TransactionServiceDbImpl implements TransactionService{
 
     public Transaction createDataWithDto(TransactionDTO transactionDto) {
         Grave grave = graveServiceDb.getDataById(transactionDto.getGraveId());
-        if (grave.getType().equals("Public")){
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Grave type is public, you cant bought or book Public Cemeteries, please check and try again");
-        }
         User user = userServiceDb.getDataById(transactionDto.getUserId());
         Integer slot = grave.getAvailableSlots() - transactionDto.getTotalSlot();
         if (slot < 0){

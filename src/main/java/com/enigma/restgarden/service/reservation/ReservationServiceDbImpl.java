@@ -52,7 +52,7 @@ public class ReservationServiceDbImpl implements ReservationService{
             if (timestamp.after(data.getExpiredDate())){
                 data.getGrave().setAvailableSlots(data.getGrave().getAvailableSlots() + data.getTotalSlot());
                 deleteDataJustById(data.getId());
-            }else if (data.getStatus().equals("Assign")){
+            }else if (data.getStatus().equalsIgnoreCase("Assign")){
                 deleteDataJustById(data.getId());
             }
         }

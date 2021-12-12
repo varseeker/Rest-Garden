@@ -105,8 +105,9 @@ public class ReservationServiceDbImpl implements ReservationService{
     public Reservation checkIn(ReservationUpdateDTO reservationUpdateDTO) {
         Reservation reservation = getDataById(reservationUpdateDTO.getReservationId());
         reservation.setStatus("Assign");
-        TransactionDTO transaction = new TransactionDTO(reservation.getUser().getId(), reservation.getGrave().getId(), reservation.getTotalSlot(), reservation.getDescription());
-        transactionServiceDb.createDataWithDto(transaction);
+        Transaction transaction = new Transaction(reservation.getUser(), reservation.getGrave(), reservation.getTotalSlot(), reservation.getDescription());
+        transaction.setTotalPrice(reservation.getTotalPayment());
+        transactionServiceDb.createData(transaction);
         reservationRepository.deleteById(reservation.getId());
         return reservation;
     }

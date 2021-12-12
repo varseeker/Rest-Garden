@@ -44,7 +44,7 @@ public class Reservation {
         this.image = grave.getImage();
         this.user = user;
         this.userName = user.getName();
-        this.expiredDate = new Timestamp(System.currentTimeMillis() + (1000*60*35));
+        this.expiredDate = new Timestamp(System.currentTimeMillis() + (1000*60*7));
         this.totalSlot = totalSlot;
         this.status = status;
         this.description = description;

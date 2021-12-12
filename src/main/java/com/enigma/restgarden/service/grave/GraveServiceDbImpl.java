@@ -46,7 +46,11 @@ public class GraveServiceDbImpl implements GraveService{
 
     @Override
     public Grave createData(Grave grave) {
-        return graveRepository.save(grave);
+        if (grave.getPrice() < 0 || grave.getAvailableSlots() < 0){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Price or Available Slots cant lower than 0, please check and try again");
+        }else {
+            return graveRepository.save(grave);
+        }
     }
 
     @Override

@@ -4,9 +4,11 @@ import com.enigma.restgarden.dto.ReservationDTO;
 import com.enigma.restgarden.dto.ReservationUpdateDTO;
 import com.enigma.restgarden.entity.Grave;
 import com.enigma.restgarden.entity.Reservation;
+import com.enigma.restgarden.entity.Transaction;
 import com.enigma.restgarden.entity.User;
 import com.enigma.restgarden.repo.ReservationRepository;
 import com.enigma.restgarden.service.grave.GraveServiceDbImpl;
+import com.enigma.restgarden.service.transaction.TransactionServiceDbImpl;
 import com.enigma.restgarden.service.user.UserServiceDbImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,6 +30,9 @@ public class ReservationServiceDbImpl implements ReservationService{
 
     @Autowired
     GraveServiceDbImpl graveServiceDb;
+
+    @Autowired
+    TransactionServiceDbImpl transactionServiceDb;
 
 
     @Override
@@ -85,7 +90,7 @@ public class ReservationServiceDbImpl implements ReservationService{
 
     public Reservation updateDataWithDto(ReservationUpdateDTO reservationUpdateDTO) {
         Reservation reservation = getDataById(reservationUpdateDTO.getReservationId());
-        Timestamp timestamp = new Timestamp(reservation.getExpiredDate().getTime()+(1000*60*5));
+        Timestamp timestamp = new Timestamp(reservation.getExpiredDate().getTime()+((1000*(60*60))*24));
         reservation.setExpiredDate(timestamp);
         return reservationRepository.save(reservation);
     }
@@ -93,7 +98,10 @@ public class ReservationServiceDbImpl implements ReservationService{
     public Reservation checkIn(ReservationUpdateDTO reservationUpdateDTO) {
         Reservation reservation = getDataById(reservationUpdateDTO.getReservationId());
         reservation.setStatus("Assign");
-        return reservationRepository.save(reservation);
+        Transaction transaction = new Transaction(reservation.getUser(), reservation.getGrave(), reservation.getTotalSlot(), reservation.getDescription());
+        transactionServiceDb.createData(transaction);
+        reservationRepository.deleteById(reservation.getId());
+        return reservation;
     }
 
     public Reservation createDataWithDto(ReservationDTO reservationDto) {

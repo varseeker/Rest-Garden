@@ -33,7 +33,7 @@ public class ReservationController {
         return reservationServiceDb.updateDataWithDto(reservationUpdateDto);
     }
 
-    @PutMapping("/reservation/checkin")
+    @PutMapping("/reservation/assign")
     public Reservation checkIn(@RequestBody ReservationUpdateDTO reservationUpdateDto){
         return reservationServiceDb.checkIn(reservationUpdateDto);
     }

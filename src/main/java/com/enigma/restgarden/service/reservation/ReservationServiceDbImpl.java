@@ -49,10 +49,14 @@ public class ReservationServiceDbImpl implements ReservationService{
         List<Reservation> dataReservation = reservationRepository.findAll();
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         for (Reservation data: dataReservation) {
-            if (timestamp.after(data.getExpiredDate()) || data.getStatus().equals("Assign")){
+            if (timestamp.after(data.getExpiredDate())){
                 data.getGrave().setAvailableSlots(data.getGrave().getAvailableSlots() + data.getTotalSlot());
                 deleteDataJustById(data.getId());
             }
+        }
+        List<Reservation> dataStatus = reservationRepository.findAllByStatus("Assign");
+        for (Reservation data: dataStatus) {
+            deleteDataJustById(data.getId());
         }
         return reservationRepository.findAll();
     }

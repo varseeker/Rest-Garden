@@ -1,11 +1,13 @@
 package com.enigma.restgarden.controller;
 
+import com.enigma.restgarden.dto.CustomPage;
 import com.enigma.restgarden.entity.Grave;
 import com.enigma.restgarden.service.StorageService;
 import com.enigma.restgarden.service.grave.GraveService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.istack.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -67,5 +69,10 @@ public class GraveController {
     public Grave updateGraveWithImage(@RequestPart String graveString, @Nullable @RequestPart("image") MultipartFile multipartFile) throws IOException {
         Grave grave = objectMapper.readValue(graveString, Grave.class);
         return graveService.updateWithFile(grave, multipartFile);
+    }
+
+    @GetMapping("/grave/pagination")
+    public CustomPage<Grave> findAllGraveWithPage(@RequestParam(name = "page") Integer page, @RequestParam(name = "size") Integer size){
+        return graveService.getAllDataWithPage(PageRequest.of(page, size));
     }
 }

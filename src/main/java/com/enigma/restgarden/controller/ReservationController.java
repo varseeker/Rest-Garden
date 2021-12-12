@@ -1,12 +1,13 @@
 package com.enigma.restgarden.controller;
 
 
+import com.enigma.restgarden.dto.CustomPage;
 import com.enigma.restgarden.dto.ReservationDTO;
 import com.enigma.restgarden.dto.ReservationUpdateDTO;
-import com.enigma.restgarden.entity.Grave;
 import com.enigma.restgarden.entity.Reservation;
 import com.enigma.restgarden.service.reservation.ReservationServiceDbImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -61,5 +62,10 @@ public class ReservationController {
     @DeleteMapping("/reservation/{id}")
     public void deleteByIdGrave(@PathVariable(name = "id") String id){
         reservationServiceDb.deleteData(id);
+    }
+
+    @GetMapping("/reservation/pagination")
+    public CustomPage<Reservation> findAllReservationWithPage(@RequestParam(name = "page") Integer page, @RequestParam(name = "size") Integer size){
+        return reservationServiceDb.getAllDataWithPage(PageRequest.of(page, size));
     }
 }

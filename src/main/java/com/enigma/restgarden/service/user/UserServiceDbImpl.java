@@ -1,12 +1,16 @@
 package com.enigma.restgarden.service.user;
 
+import com.enigma.restgarden.dto.CustomPage;
 import com.enigma.restgarden.dto.UserCredentials;
+import com.enigma.restgarden.entity.Corpse;
 import com.enigma.restgarden.entity.User;
 import com.enigma.restgarden.repo.UserRepository;
 import com.enigma.restgarden.security.JwtTokenUtil;
 import com.enigma.restgarden.service.UserDetailServiceDbImpl;
 import com.enigma.restgarden.service.grave.GraveService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -84,6 +88,12 @@ public class UserServiceDbImpl implements UserService {
         getDataById(user.getId());
         userRepository.save(user);
         return user;
+    }
+
+    @Override
+    public CustomPage<User> getAllDataWithPage(Pageable pageable) {
+        Page<User> pageData = userRepository.findAll(pageable);
+        return new CustomPage<>(pageData);
     }
 
     public Map<String, Object> signIn(UserCredentials userCredentials) {

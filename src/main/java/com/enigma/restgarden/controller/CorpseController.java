@@ -2,10 +2,13 @@ package com.enigma.restgarden.controller;
 
 import com.enigma.restgarden.dto.CorpseDTO;
 import com.enigma.restgarden.dto.CorpseUpdateDTO;
+import com.enigma.restgarden.dto.CustomPage;
 import com.enigma.restgarden.entity.Corpse;
 import com.enigma.restgarden.service.corpse.CorpseService;
 import com.enigma.restgarden.service.corpse.CorpseServiceDbImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,5 +39,10 @@ public class CorpseController {
     @PutMapping("/corpse")
     public Corpse updateCorpse(@RequestBody CorpseUpdateDTO corpseUpdateDto){
         return corpseServiceDb.updateDataWithDto(corpseUpdateDto);
+    }
+
+    @GetMapping("/corpse/pagination")
+    public CustomPage<Corpse> findAllCorpseWithPage(@RequestParam(name = "page") Integer page, @RequestParam(name = "size") Integer size){
+        return corpseServiceDb.getAllDataWithPage(PageRequest.of(page, size));
     }
 }

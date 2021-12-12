@@ -1,16 +1,16 @@
 package com.enigma.restgarden.service.reservation;
 
+import com.enigma.restgarden.dto.CustomPage;
 import com.enigma.restgarden.dto.ReservationDTO;
 import com.enigma.restgarden.dto.ReservationUpdateDTO;
-import com.enigma.restgarden.entity.Grave;
-import com.enigma.restgarden.entity.Reservation;
-import com.enigma.restgarden.entity.Transaction;
-import com.enigma.restgarden.entity.User;
+import com.enigma.restgarden.entity.*;
 import com.enigma.restgarden.repo.ReservationRepository;
 import com.enigma.restgarden.service.grave.GraveServiceDbImpl;
 import com.enigma.restgarden.service.transaction.TransactionServiceDbImpl;
 import com.enigma.restgarden.service.user.UserServiceDbImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -86,6 +86,12 @@ public class ReservationServiceDbImpl implements ReservationService{
         getDataById(reservation.getId());
         reservationRepository.save(reservation);
         return reservation;
+    }
+
+    @Override
+    public CustomPage<Reservation> getAllDataWithPage(Pageable pageable) {
+        Page<Reservation> pageData = reservationRepository.findAll(pageable);
+        return new CustomPage<>(pageData);
     }
 
     public Reservation updateDataWithDto(ReservationUpdateDTO reservationUpdateDTO) {

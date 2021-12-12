@@ -1,14 +1,14 @@
 package com.enigma.restgarden.service.transaction;
 
+import com.enigma.restgarden.dto.CustomPage;
 import com.enigma.restgarden.dto.TransactionDTO;
-import com.enigma.restgarden.entity.Grave;
-import com.enigma.restgarden.entity.Reservation;
-import com.enigma.restgarden.entity.Transaction;
-import com.enigma.restgarden.entity.User;
+import com.enigma.restgarden.entity.*;
 import com.enigma.restgarden.repo.TransactionRepository;
 import com.enigma.restgarden.service.grave.GraveServiceDbImpl;
 import com.enigma.restgarden.service.user.UserServiceDbImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -61,6 +61,12 @@ public class TransactionServiceDbImpl implements TransactionService{
     @Override
     public Transaction updateData(Transaction transaction) {
         return null;
+    }
+
+    @Override
+    public CustomPage<Transaction> getAllDataWithPage(Pageable pageable) {
+        Page<Transaction> pageData = transactionRepository.findAll(pageable);
+        return new CustomPage<>(pageData);
     }
 
     public Transaction createDataWithDto(TransactionDTO transactionDto) {

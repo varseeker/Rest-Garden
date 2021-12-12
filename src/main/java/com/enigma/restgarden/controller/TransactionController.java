@@ -1,10 +1,12 @@
 package com.enigma.restgarden.controller;
 
+import com.enigma.restgarden.dto.CustomPage;
 import com.enigma.restgarden.dto.TransactionDTO;
-import com.enigma.restgarden.entity.Reservation;
+import com.enigma.restgarden.entity.Transaction;
 import com.enigma.restgarden.entity.Transaction;
 import com.enigma.restgarden.service.transaction.TransactionServiceDbImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,5 +37,10 @@ public class TransactionController {
     public Transaction update(@RequestBody Transaction transaction){
         transactionServiceDb.updateData(transaction);
         return transaction;
+    }
+
+    @GetMapping("/transaction/pagination")
+    public CustomPage<Transaction> findAllTransactionWithPage(@RequestParam(name = "page") Integer page, @RequestParam(name = "size") Integer size){
+        return transactionServiceDb.getAllDataWithPage(PageRequest.of(page, size));
     }
 }

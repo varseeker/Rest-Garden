@@ -1,9 +1,13 @@
 package com.enigma.restgarden.service.manageimage;
 
+import com.enigma.restgarden.dto.CustomPage;
+import com.enigma.restgarden.entity.Corpse;
 import com.enigma.restgarden.entity.ManageImage;
 import com.enigma.restgarden.repo.ManageImageRepository;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -57,6 +61,12 @@ public class ManageImageServiceDbImpl implements ManageImageService {
     public ManageImage updateData(ManageImage manageImage) {
         getDataById(manageImage.getId());
         return manageImageRepository.save(manageImage);
+    }
+
+    @Override
+    public CustomPage<ManageImage> getAllDataWithPage(Pageable pageable) {
+        Page<ManageImage> pageData = manageImageRepository.findAll(pageable);
+        return new CustomPage<>(pageData);
     }
 
     public void addMultipartFile(String id, MultipartFile multipartFile) throws IOException {

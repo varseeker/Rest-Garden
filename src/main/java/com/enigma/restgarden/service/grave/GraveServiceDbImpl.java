@@ -1,5 +1,7 @@
 package com.enigma.restgarden.service.grave;
 
+import com.enigma.restgarden.dto.CustomPage;
+import com.enigma.restgarden.entity.Corpse;
 import com.enigma.restgarden.entity.Grave;
 import com.enigma.restgarden.entity.ManageImage;
 import com.enigma.restgarden.entity.Reservation;
@@ -7,6 +9,8 @@ import com.enigma.restgarden.repo.GraveRepository;
 import com.enigma.restgarden.service.manageimage.ManageImageServiceDbImpl;
 import com.enigma.restgarden.service.reservation.ReservationServiceDbImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -63,6 +67,12 @@ public class GraveServiceDbImpl implements GraveService{
         getDataById(grave.getId());
         graveRepository.save(grave);
         return grave;
+    }
+
+    @Override
+    public CustomPage<Grave> getAllDataWithPage(Pageable pageable) {
+        Page<Grave> pageData = graveRepository.findAll(pageable);
+        return new CustomPage<>(pageData);
     }
 
     @Override

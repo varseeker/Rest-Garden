@@ -2,11 +2,14 @@ package com.enigma.restgarden.service.corpse;
 
 import com.enigma.restgarden.dto.CorpseDTO;
 import com.enigma.restgarden.dto.CorpseUpdateDTO;
+import com.enigma.restgarden.dto.CustomPage;
 import com.enigma.restgarden.entity.Corpse;
 import com.enigma.restgarden.entity.Grave;
 import com.enigma.restgarden.repo.CorpseRepository;
 import com.enigma.restgarden.service.grave.GraveService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -46,6 +49,12 @@ public class CorpseServiceDbImpl implements CorpseService {
     @Override
     public Corpse updateData(Corpse corpse) {
         return corpseRepository.save(corpse);
+    }
+
+    @Override
+    public CustomPage<Corpse> getAllDataWithPage(Pageable pageable) {
+        Page<Corpse> pageData = corpseRepository.findAll(pageable);
+        return new CustomPage<>(pageData);
     }
 
     public Corpse createDataWithDto(CorpseDTO corpseDto) {

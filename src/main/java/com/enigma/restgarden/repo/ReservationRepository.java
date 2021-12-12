@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, String> {
     public List<Reservation> findAllByUser(User user);
+    public List<Reservation> findAllByStatus(String status);
 }

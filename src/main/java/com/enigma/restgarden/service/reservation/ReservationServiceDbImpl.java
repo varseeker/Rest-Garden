@@ -121,15 +121,13 @@ public class ReservationServiceDbImpl implements ReservationService{
     public List<Reservation> getAllReservationByUser(String id){
         User user = userServiceDb.getDataById(id);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        List<Reservation> listByUser = reservationRepository.findAllByUser(user);
+        List<Reservation> listByUser = reservationRepository.findAllByUserAndStatus(user, "Reserved");
         for (Reservation data: listByUser) {
-            if (data.getStatus().equalsIgnoreCase("Assign")){
-                deleteDataJustById(data.getId());
-            }else if (timestamp.after(data.getExpiredDate())){
+            if (timestamp.after(data.getExpiredDate())){
                 data.getGrave().setAvailableSlots(data.getGrave().getAvailableSlots() + data.getTotalSlot());
                 deleteDataJustById(data.getId());
             }
         }
-        return reservationRepository.findAllByUser(user);
+        return reservationRepository.findAllByUserAndStatus(user, "Reserved");
     }
 }

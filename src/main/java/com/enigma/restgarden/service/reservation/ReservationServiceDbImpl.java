@@ -52,8 +52,6 @@ public class ReservationServiceDbImpl implements ReservationService{
             if (timestamp.after(data.getExpiredDate())){
                 data.getGrave().setAvailableSlots(data.getGrave().getAvailableSlots() + data.getTotalSlot());
                 deleteDataJustById(data.getId());
-            }else if (data.getStatus().equalsIgnoreCase("Assign")){
-                deleteDataJustById(data.getId());
             }
         }
         return reservationRepository.findAll();
@@ -122,6 +120,13 @@ public class ReservationServiceDbImpl implements ReservationService{
 
     public List<Reservation> getAllReservationByUser(String id){
         User user = userServiceDb.getDataById(id);
+
+        List<Reservation> listByUser = reservationRepository.findAllByUser(user);
+        for (Reservation data: listByUser) {
+            if (data.getStatus().equalsIgnoreCase("Assign")){
+                deleteDataJustById(data.getId());
+            }
+        }
         return reservationRepository.findAllByUser(user);
     }
 }

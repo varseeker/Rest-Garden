@@ -11,6 +11,13 @@ public class TransactionDTO {
     public TransactionDTO() {
     }
 
+    public TransactionDTO(String userId, String graveId, Integer totalSlot, String description) {
+        this.userId = userId;
+        this.graveId = graveId;
+        this.totalSlot = totalSlot;
+        this.description = description;
+    }
+
     public String getUserId() {
         return userId;
     }

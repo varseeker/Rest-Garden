@@ -3,6 +3,7 @@ package com.enigma.restgarden.service.reservation;
 import com.enigma.restgarden.dto.CustomPage;
 import com.enigma.restgarden.dto.ReservationDTO;
 import com.enigma.restgarden.dto.ReservationUpdateDTO;
+import com.enigma.restgarden.dto.TransactionDTO;
 import com.enigma.restgarden.entity.*;
 import com.enigma.restgarden.repo.ReservationRepository;
 import com.enigma.restgarden.service.grave.GraveServiceDbImpl;
@@ -104,8 +105,8 @@ public class ReservationServiceDbImpl implements ReservationService{
     public Reservation checkIn(ReservationUpdateDTO reservationUpdateDTO) {
         Reservation reservation = getDataById(reservationUpdateDTO.getReservationId());
         reservation.setStatus("Assign");
-        Transaction transaction = new Transaction(reservation.getUser(), reservation.getGrave(), reservation.getTotalSlot(), reservation.getDescription());
-        transactionServiceDb.createData(transaction);
+        TransactionDTO transaction = new TransactionDTO(reservation.getUser().getId(), reservation.getGrave().getId(), reservation.getTotalSlot(), reservation.getDescription());
+        transactionServiceDb.createDataWithDto(transaction);
         reservationRepository.deleteById(reservation.getId());
         return reservation;
     }

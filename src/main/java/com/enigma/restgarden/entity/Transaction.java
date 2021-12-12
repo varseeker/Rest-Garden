@@ -28,7 +28,7 @@ public class Transaction {
     private String image;
 
     private Integer totalSlot;
-    private Timestamp expiredDate;
+    private Timestamp date;
     private String description;
 
     public Transaction() {
@@ -43,7 +43,7 @@ public class Transaction {
         this.image = grave.getImage();
         this.totalSlot = totalSlot;
         this.gravePrice = grave.getPrice();
-        this.expiredDate = new Timestamp(System.currentTimeMillis() + (1000*60*2));
+        this.date = new Timestamp(System.currentTimeMillis());
         this.description = description;
     }
 
@@ -113,12 +113,12 @@ public class Transaction {
         this.gravePrice = gravePrice;
     }
 
-    public Timestamp getExpiredDate() {
-        return expiredDate;
+    public Timestamp getDate() {
+        return date;
     }
 
-    public void getExpiredDate(Timestamp expiredDate) {
-        this.expiredDate = expiredDate;
+    public void getDate(Timestamp date) {
+        this.date = date;
     }
 
     public String getGraveAddress() {
@@ -129,8 +129,8 @@ public class Transaction {
         this.graveAddress = graveAddress;
     }
 
-    public void setExpiredDate(Timestamp expiredDate) {
-        this.expiredDate = expiredDate;
+    public void setDate(Timestamp date) {
+        this.date = date;
     }
 
     public String getImage() {

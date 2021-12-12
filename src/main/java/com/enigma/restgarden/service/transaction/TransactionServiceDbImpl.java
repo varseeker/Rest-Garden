@@ -45,14 +45,6 @@ public class TransactionServiceDbImpl implements TransactionService{
 
     @Override
     public List<Transaction> getAllData() {
-        List<Transaction> dataTransaction = transactionRepository.findAll();
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        for (Transaction data: dataTransaction) {
-            if (timestamp.after(data.getExpiredDate())){
-                data.getGrave().setAvailableSlots(data.getGrave().getAvailableSlots() + data.getTotalSlot());
-                deleteData(data.getId());
-            }
-        }
         return transactionRepository.findAll();
     }
 
@@ -82,5 +74,10 @@ public class TransactionServiceDbImpl implements TransactionService{
             Transaction transaction = new Transaction(user, grave, transactionDto.getTotalSlot(), transactionDto.getDescription());
             return transactionRepository.save(transaction);
         }
+    }
+
+    public List<Transaction> getAllDataByUser(String userId) {
+        User user = userServiceDb.getDataById(userId);
+        return transactionRepository.findAllByUser(user);
     }
 }

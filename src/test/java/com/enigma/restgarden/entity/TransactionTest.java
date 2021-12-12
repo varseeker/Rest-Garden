@@ -41,7 +41,7 @@ class TransactionTest {
         Timestamp date = new Timestamp(System.currentTimeMillis());
         Timestamp dateExpected = new Timestamp(System.currentTimeMillis());
         Transaction transaction = new Transaction(user, grave, 3, "apa");
-        assertEquals(transaction.getExpiredDate(), dateExpected);
+        assertEquals(transaction.getDate(), dateExpected);
     }
 
     @Test

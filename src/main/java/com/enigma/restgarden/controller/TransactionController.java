@@ -1,6 +1,7 @@
 package com.enigma.restgarden.controller;
 
 import com.enigma.restgarden.dto.TransactionDTO;
+import com.enigma.restgarden.entity.Reservation;
 import com.enigma.restgarden.entity.Transaction;
 import com.enigma.restgarden.service.transaction.TransactionServiceDbImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ public class TransactionController {
     @PostMapping("/transaction")
     public Transaction create(@RequestBody TransactionDTO transactionDto){
         return transactionServiceDb.createDataWithDto(transactionDto);
+    }
+
+    @GetMapping("/transaction/user/{idUser}")
+    public List<Transaction> getByIdUser(@PathVariable(name = "idUser") String id){
+        return transactionServiceDb.getAllDataByUser(id);
     }
 
     @PutMapping("/transaction")

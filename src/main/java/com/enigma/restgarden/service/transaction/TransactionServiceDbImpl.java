@@ -60,7 +60,7 @@ public class TransactionServiceDbImpl implements TransactionService{
 
     @Override
     public Transaction updateData(Transaction transaction) {
-        return null;
+        return transactionRepository.save(transaction);
     }
 
     @Override

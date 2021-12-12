@@ -58,8 +58,14 @@ public class GraveController {
     }
 
     @PostMapping("/register/upload")
-    public Grave createUser(@RequestPart String graveString, @Nullable @RequestPart("image") MultipartFile multipartFile) throws IOException {
+    public Grave createGraveWithImage(@RequestPart String graveString, @Nullable @RequestPart("image") MultipartFile multipartFile) throws IOException {
         Grave grave = objectMapper.readValue(graveString, Grave.class);
         return graveService.createWithFile(grave, multipartFile);
+    }
+
+    @PutMapping("/register/upload")
+    public Grave updateGraveWithImage(@RequestPart String graveString, @Nullable @RequestPart("image") MultipartFile multipartFile) throws IOException {
+        Grave grave = objectMapper.readValue(graveString, Grave.class);
+        return graveService.updateWithFile(grave, multipartFile);
     }
 }

@@ -78,6 +78,7 @@ public class TransactionServiceDbImpl implements TransactionService{
         }else {
             grave.setAvailableSlots(slot);
             Transaction transaction = new Transaction(user, grave, transactionDto.getTotalSlot(), transactionDto.getDescription());
+            transaction.setTotalPrice(grave.getPrice() * transaction.getTotalSlot());
             return transactionRepository.save(transaction);
         }
     }

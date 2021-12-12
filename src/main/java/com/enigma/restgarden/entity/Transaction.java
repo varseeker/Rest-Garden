@@ -29,6 +29,7 @@ public class Transaction {
 
     private Integer totalSlot;
     private Timestamp date;
+    private Integer totalPrice;
     private String description;
 
     public Transaction() {
@@ -139,5 +140,13 @@ public class Transaction {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public Integer getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Integer totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

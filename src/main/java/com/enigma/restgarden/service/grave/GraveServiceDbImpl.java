@@ -111,7 +111,6 @@ public class GraveServiceDbImpl implements GraveService{
 
     private void setGraveWithoutFile(Grave grave) {
         Optional<ManageImage> imageEntity = manageImageServiceDb.getBySourceId(grave.getId());
-        imageEntity.ifPresent(entity -> manageImageServiceDb.deleteData(entity.getId()));
-        grave.setImage(null);
+//        imageEntity.ifPresent(entity -> manageImageServiceDb.deleteData(entity.getId()));
     }
 }

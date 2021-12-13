@@ -60,7 +60,7 @@ public class UserController {
     }
 
     @GetMapping("/user/pagination")
-    public CustomPage<User> findAllUserWithPage(@RequestParam(name = "page") Integer page, @RequestParam(name = "size") Integer size){
-        return userServiceDb.getAllDataWithPage(PageRequest.of(page, size));
+    public CustomPage<User> findAllUserWithPage(@RequestParam(name = "page") Integer page, @RequestParam(name = "size") Integer size,  @RequestParam(name = "clue") String clue){
+        return userServiceDb.getAllDataWithPage(PageRequest.of(page, size), clue);
     }
 }

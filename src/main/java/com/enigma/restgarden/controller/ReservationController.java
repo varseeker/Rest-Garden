@@ -65,7 +65,7 @@ public class ReservationController {
     }
 
     @GetMapping("/reservation/pagination")
-    public CustomPage<Reservation> findAllReservationWithPage(@RequestParam(name = "page") Integer page, @RequestParam(name = "size") Integer size){
-        return reservationServiceDb.getAllDataWithPage(PageRequest.of(page, size));
+    public CustomPage<Reservation> findAllReservationWithPage(@RequestParam(name = "page") Integer page, @RequestParam(name = "size") Integer size,  @RequestParam(name = "clue") String clue){
+        return reservationServiceDb.getAllDataWithPage(PageRequest.of(page, size), clue);
     }
 }

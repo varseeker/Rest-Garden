@@ -90,7 +90,7 @@ public class ReservationServiceDbImpl implements ReservationService{
     }
 
     @Override
-    public CustomPage<Reservation> getAllDataWithPage(Pageable pageable) {
+    public CustomPage<Reservation> getAllDataWithPage(Pageable pageable, String clue) {
         Page<Reservation> pageData = reservationRepository.findAll(pageable);
         return new CustomPage<>(pageData);
     }

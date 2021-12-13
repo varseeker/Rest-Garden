@@ -45,7 +45,7 @@ public class TransactionController {
     }
 
     @GetMapping("/transaction/pagination")
-    public CustomPage<Transaction> findAllTransactionWithPage(@RequestParam(name = "page") Integer page, @RequestParam(name = "size") Integer size){
-        return transactionServiceDb.getAllDataWithPage(PageRequest.of(page, size));
+    public CustomPage<Transaction> findAllTransactionWithPage(@RequestParam(name = "page") Integer page, @RequestParam(name = "size") Integer size,  @RequestParam(name = "clue") String clue){
+        return transactionServiceDb.getAllDataWithPage(PageRequest.of(page, size), clue);
     }
 }

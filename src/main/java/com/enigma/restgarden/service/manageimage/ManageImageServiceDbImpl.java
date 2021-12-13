@@ -64,7 +64,7 @@ public class ManageImageServiceDbImpl implements ManageImageService {
     }
 
     @Override
-    public CustomPage<ManageImage> getAllDataWithPage(Pageable pageable) {
+    public CustomPage<ManageImage> getAllDataWithPage(Pageable pageable, String clue) {
         Page<ManageImage> pageData = manageImageRepository.findAll(pageable);
         return new CustomPage<>(pageData);
     }

@@ -72,7 +72,7 @@ public class GraveController {
     }
 
     @GetMapping("/grave/pagination")
-    public CustomPage<Grave> findAllGraveWithPage(@RequestParam(name = "page") Integer page, @RequestParam(name = "size") Integer size){
-        return graveService.getAllDataWithPage(PageRequest.of(page, size));
+    public CustomPage<Grave> findAllGraveWithPage(@RequestParam(name = "page") Integer page, @RequestParam(name = "size") Integer size, @RequestParam(name = "clue") String clue){
+        return graveService.getAllDataWithPage(PageRequest.of(page, size), clue);
     }
 }

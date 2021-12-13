@@ -94,7 +94,7 @@ public class UserServiceDbImpl implements UserService {
     }
 
     @Override
-    public CustomPage<User> getAllDataWithPage(Pageable pageable) {
+    public CustomPage<User> getAllDataWithPage(Pageable pageable, String clue) {
         Page<User> pageData = userRepository.findAll(pageable);
         return new CustomPage<>(pageData);
     }

@@ -52,8 +52,8 @@ public class CorpseServiceDbImpl implements CorpseService {
     }
 
     @Override
-    public CustomPage<Corpse> getAllDataWithPage(Pageable pageable) {
-        Page<Corpse> pageData = corpseRepository.findAll(pageable);
+    public CustomPage<Corpse> getAllDataWithPage(Pageable pageable, String clue) {
+        Page<Corpse> pageData = corpseRepository.findAllByNameContainsOrParentNameContainsOrLocationContains(clue, clue, clue, pageable);
         return new CustomPage<>(pageData);
     }
 

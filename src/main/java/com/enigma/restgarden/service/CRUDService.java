@@ -12,5 +12,5 @@ public interface CRUDService<T> {
     public T createData(T t);
     public void deleteData(String id);
     public T updateData(T t);
-    public CustomPage<T> getAllDataWithPage(Pageable pageable);
+    public CustomPage<T> getAllDataWithPage(Pageable pageable, String clue);
 }

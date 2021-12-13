@@ -70,7 +70,7 @@ public class GraveServiceDbImpl implements GraveService{
     }
 
     @Override
-    public CustomPage<Grave> getAllDataWithPage(Pageable pageable) {
+    public CustomPage<Grave> getAllDataWithPage(Pageable pageable, String clue) {
         Page<Grave> pageData = graveRepository.findAll(pageable);
         return new CustomPage<>(pageData);
     }

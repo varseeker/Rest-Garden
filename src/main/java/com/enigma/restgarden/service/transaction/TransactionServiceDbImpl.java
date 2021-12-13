@@ -64,7 +64,7 @@ public class TransactionServiceDbImpl implements TransactionService{
     }
 
     @Override
-    public CustomPage<Transaction> getAllDataWithPage(Pageable pageable) {
+    public CustomPage<Transaction> getAllDataWithPage(Pageable pageable, String clue) {
         Page<Transaction> pageData = transactionRepository.findAll(pageable);
         return new CustomPage<>(pageData);
     }

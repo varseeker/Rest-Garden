@@ -89,9 +89,12 @@ public class GraveServiceDbImpl implements GraveService{
 
     @Override
     public Grave updateWithFile(Grave grave, MultipartFile multipartFile) throws IOException {
-        grave = updateData(grave);
-        buildGrave(grave, multipartFile);
-        return updateData(grave);
+        if (grave.getImage().isEmpty()){
+            buildGrave(grave, multipartFile);
+            return updateData(grave);
+        }else {
+            return grave = updateData(grave);
+        }
     }
 
     private void buildGrave(Grave grave, MultipartFile multipartFile) throws IOException {

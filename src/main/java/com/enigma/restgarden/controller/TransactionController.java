@@ -28,6 +28,12 @@ public class TransactionController {
         return transactionServiceDb.createDataWithDto(transactionDto);
     }
 
+    @GetMapping("/transaction/{id}")
+    public void getDataById(@PathVariable(name = "id") String id){
+        transactionServiceDb.getDataById(id);
+    }
+
+
     @DeleteMapping("/transaction/{id}")
     public void deleteData(@PathVariable(name = "id") String id){
         transactionServiceDb.deleteData(id);

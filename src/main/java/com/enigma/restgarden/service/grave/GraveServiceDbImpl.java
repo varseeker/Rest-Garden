@@ -91,7 +91,6 @@ public class GraveServiceDbImpl implements GraveService{
     public Grave updateWithFile(Grave grave, MultipartFile multipartFile) throws IOException {
         grave = updateData(grave);
         buildGrave(grave, multipartFile);
-        System.out.println(grave);
         return updateData(grave);
     }
 

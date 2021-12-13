@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CorpseRepository extends JpaRepository<Corpse, String>, JpaSpecificationExecutor<Corpse> {
+public interface CorpseRepository extends JpaRepository<Corpse, String> {
 }

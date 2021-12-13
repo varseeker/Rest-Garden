@@ -31,6 +31,7 @@ public class Transaction {
     private Timestamp date;
     private Integer totalPrice;
     private String description;
+    private String type;
 
     public Transaction() {
     }
@@ -148,5 +149,13 @@ public class Transaction {
 
     public void setTotalPrice(Integer totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

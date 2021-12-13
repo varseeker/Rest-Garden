@@ -107,6 +107,7 @@ public class ReservationServiceDbImpl implements ReservationService{
         reservation.setStatus("Assign");
         Transaction transaction = new Transaction(reservation.getUser(), reservation.getGrave(), reservation.getTotalSlot(), reservation.getDescription());
         transaction.setTotalPrice(reservation.getTotalPayment());
+        transaction.setType("Reservation");
         transactionServiceDb.createData(transaction);
         reservationRepository.deleteById(reservation.getId());
         return reservation;

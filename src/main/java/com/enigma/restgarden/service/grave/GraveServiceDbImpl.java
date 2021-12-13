@@ -65,8 +65,7 @@ public class GraveServiceDbImpl implements GraveService{
     @Override
     public Grave updateData(Grave grave) {
         getDataById(grave.getId());
-        graveRepository.save(grave);
-        return grave;
+        return graveRepository.save(grave);
     }
 
     @Override
@@ -84,17 +83,18 @@ public class GraveServiceDbImpl implements GraveService{
     public Grave createWithFile(Grave grave, MultipartFile multipartFile) throws IOException {
         grave = createData(grave);
         buildGrave(grave, multipartFile);
-        return updateData(grave);
+        return updateGraveData(grave);
     }
 
     @Override
     public Grave updateWithFile(Grave grave, MultipartFile multipartFile) throws IOException {
-        if (grave.getImage().isEmpty()){
             buildGrave(grave, multipartFile);
-            return updateData(grave);
-        }else {
-            return grave = updateData(grave);
-        }
+            return updateGraveData(grave);
+    }
+
+    public Grave updateGraveData(Grave grave){
+        getDataById(grave.getId());
+        return graveRepository.save(grave);
     }
 
     private void buildGrave(Grave grave, MultipartFile multipartFile) throws IOException {

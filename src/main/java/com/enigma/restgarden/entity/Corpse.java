@@ -3,6 +3,7 @@ package com.enigma.restgarden.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 @Entity
@@ -15,6 +16,7 @@ public class Corpse {
     private String name;
     private String parentName;
     private String location;
+    private Date birthDate;
     private Timestamp date = new Timestamp(System.currentTimeMillis());
 
     @ManyToOne
@@ -79,4 +81,11 @@ public class Corpse {
         this.grave = grave;
     }
 
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
 }

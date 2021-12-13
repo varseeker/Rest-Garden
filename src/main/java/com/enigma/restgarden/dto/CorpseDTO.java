@@ -4,6 +4,7 @@ public class CorpseDTO {
     private String graveId;
     private String name;
     private String parentName;
+    private String birthDate;
     private String location;
 
     public CorpseDTO() {
@@ -39,5 +40,13 @@ public class CorpseDTO {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
     }
 }

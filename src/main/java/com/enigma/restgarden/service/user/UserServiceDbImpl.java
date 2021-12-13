@@ -66,7 +66,7 @@ public class UserServiceDbImpl implements UserService {
 
     @Override
     public User createData(User user) {
-        if (user.getUsername().isEmpty() || user.getName().isEmpty() || user.getPhoneNumber().isEmpty()) {
+        if (user.getUsername().isEmpty() || user.getName().isEmpty() || user.getPhoneNumber().isEmpty() || user.getEmail().isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Form cant be let empty, please check and try again");
         } else {
             if (userRepository.existsByUsername(user.getUsername())) {
@@ -102,8 +102,8 @@ public class UserServiceDbImpl implements UserService {
     public Map<String, Object> signIn(UserCredentials userCredentials) {
         if (userCredentials.getUsername().isEmpty() || userCredentials.getPassword().isEmpty()) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Username and Password must fill, please check and try again");
-        } else if (!(userRepository.findUsersByUsername(userCredentials.getUsername()).isPresent() || userRepository.findUserByPassword(userCredentials.getPassword()).isPresent())) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Username and Password must fill, please check and try again");
+        } else if (!(userRepository.findUsersByUsername(userCredentials.getUsername()).isPresent() && userRepository.findUserByPassword(userCredentials.getPassword()).isPresent())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Wrong Username or Password, please check and try again");
         }else {
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userCredentials.getUsername(), userCredentials.getPassword());
             authenticationManager.authenticate(usernamePasswordAuthenticationToken);

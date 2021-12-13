@@ -29,8 +29,8 @@ public class TransactionController {
     }
 
     @GetMapping("/transaction/{id}")
-    public void getDataById(@PathVariable(name = "id") String id){
-        transactionServiceDb.getDataById(id);
+    public Transaction getDataById(@PathVariable(name = "id") String id){
+        return transactionServiceDb.getDataById(id);
     }
 
 

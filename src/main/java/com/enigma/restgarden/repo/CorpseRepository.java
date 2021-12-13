@@ -10,5 +10,5 @@ import java.util.List;
 
 @Repository
 public interface CorpseRepository extends JpaRepository<Corpse, String> {
-    public Page<Corpse> findAllByNameContainsOrParentNameContainsOrLocationContains(String name, String parentName, String location, Pageable pageable);
+    public Page<Corpse> findAllByNameContains(String name, Pageable pageable);
 }

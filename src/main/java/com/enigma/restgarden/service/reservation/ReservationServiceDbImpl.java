@@ -100,7 +100,7 @@ public class ReservationServiceDbImpl implements ReservationService{
         Timestamp timestamp = new Timestamp(reservation.getExpiredDate().getTime()+((1000*(60*60))*24));
         reservation.setExpiredDate(timestamp);
         Double fee = reservation.getGrave().getPrice() * 0.2;
-        reservation.setTotalPayment(reservation.getTotalPayment()+fee.intValue());
+        reservation.setTotalPayment(reservation.getTotalPayment()+(fee.intValue()*reservation.getTotalSlot()));
         return reservationRepository.save(reservation);
     }
 

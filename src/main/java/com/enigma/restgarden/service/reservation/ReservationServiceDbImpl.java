@@ -57,6 +57,10 @@ public class ReservationServiceDbImpl implements ReservationService{
         for (Reservation data: dataReservation) {
             if (timestamp.after(data.getExpiredDate())){
                 data.getGrave().setAvailableSlots(data.getGrave().getAvailableSlots() + data.getTotalSlot());
+                Transaction transaction = new Transaction(data.getUser(), data.getGrave(), data.getTotalSlot(), data.getDescription());
+                transaction.setType("Reservation");
+                transaction.setStatus("EXPIRED");
+                transactionServiceDb.createData(transaction);
                 deleteDataJustById(data.getId());
             }
         }

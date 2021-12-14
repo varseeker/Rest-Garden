@@ -3,6 +3,7 @@ package com.enigma.restgarden.dto;
 import java.sql.Date;
 
 public class CorpseDTO {
+    private String id;
     private String graveId;
     private String name;
     private String parentName;
@@ -10,6 +11,14 @@ public class CorpseDTO {
     private String location;
 
     public CorpseDTO() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getGraveId() {

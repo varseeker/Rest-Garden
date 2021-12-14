@@ -41,8 +41,8 @@ public class CorpseController {
     }
 
     @PutMapping("/corpse")
-    public Corpse updateCorpse(@RequestBody Corpse corpse) {
-        return corpseServiceDb.updateData(corpse);
+    public Corpse updateCorpse(@RequestBody CorpseDTO corpseDTO) {
+        return corpseServiceDb.updateDataWithDto(corpseDTO);
     }
 
     @GetMapping("/corpse/pagination")

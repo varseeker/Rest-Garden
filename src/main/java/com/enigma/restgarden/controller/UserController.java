@@ -50,8 +50,7 @@ public class UserController {
 
     @PutMapping("/user")
     public User updateUserCoba(@RequestBody User user){
-        userService.updateData(user);
-        return user;
+        return userService.updateData(user);
     }
 
     @PostMapping("/signin")

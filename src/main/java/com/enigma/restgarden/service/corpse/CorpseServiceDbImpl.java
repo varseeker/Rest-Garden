@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CorpseServiceDbImpl implements CorpseService {
@@ -27,7 +28,16 @@ public class CorpseServiceDbImpl implements CorpseService {
 
     @Override
     public Corpse getDataById(String id) {
-        return corpseRepository.getById(id);
+        Optional<Corpse> corpseOptional = isCorpseExist(id);
+        return corpseOptional.get();
+    }
+
+    private Optional<Corpse> isCorpseExist(String id) {
+        Optional<Corpse> corpseOptional = corpseRepository.findById(id);
+        if (!corpseOptional.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cant find corpse with that id, please check and try again");
+        }
+        return corpseOptional;
     }
 
     @Override
@@ -48,6 +58,7 @@ public class CorpseServiceDbImpl implements CorpseService {
 
     @Override
     public Corpse updateData(Corpse corpse) {
+        getDataById(corpse.getId());
         return corpseRepository.save(corpse);
     }
 

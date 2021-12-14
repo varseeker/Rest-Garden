@@ -1,10 +1,12 @@
 package com.enigma.restgarden.dto;
 
+import java.sql.Date;
+
 public class CorpseDTO {
     private String graveId;
     private String name;
     private String parentName;
-    private String birthDate;
+    private Date birthDate;
     private String location;
 
     public CorpseDTO() {
@@ -42,11 +44,11 @@ public class CorpseDTO {
         this.location = location;
     }
 
-    public String getBirthDate() {
+    public Date getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(String birthDate) {
+    public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
 }

@@ -26,11 +26,12 @@ public class Corpse {
     public Corpse() {
     }
 
-    public Corpse(String name, String parentName, String location, Grave grave) {
+    public Corpse(String name, String parentName, String location, Grave grave, Date birthDate) {
         this.name = name;
         this.parentName = parentName;
         this.location = location;
         this.grave = grave;
+        this.birthDate = birthDate;
     }
 
     public String getId() {

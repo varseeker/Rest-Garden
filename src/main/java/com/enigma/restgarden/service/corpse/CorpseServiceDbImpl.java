@@ -62,7 +62,7 @@ public class CorpseServiceDbImpl implements CorpseService {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Cant let name is empty, please fill it and try again");
         }else {
             Grave grave = graveService.getDataById(corpseDto.getGraveId());
-            Corpse corpse = new Corpse(corpseDto.getName(), corpseDto.getParentName(), corpseDto.getLocation(), grave);
+            Corpse corpse = new Corpse(corpseDto.getName(), corpseDto.getParentName(), corpseDto.getLocation(), grave, corpseDto.getBirthDate());
             corpseRepository.save(corpse);
             return corpse;
         }

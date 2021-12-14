@@ -89,9 +89,12 @@ public class UserServiceDbImpl implements UserService {
     @Override
     public User updateData(User user) {
         User userUpdate = getDataById(user.getId());
-        user.setPassword(userUpdate.getPassword());
-        userRepository.save(user);
-        return user;
+        userUpdate.setName(user.getName());
+        userUpdate.setAddress(user.getAddress());
+        userUpdate.setEmail(user.getEmail());
+        userUpdate.setPhoneNumber(user.getPhoneNumber());
+        userRepository.save(userUpdate);
+        return userUpdate;
     }
 
     @Override

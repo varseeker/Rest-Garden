@@ -79,10 +79,9 @@ public class CorpseServiceDbImpl implements CorpseService {
         }
     }
 
-    public Corpse updateDataWithDto(CorpseDTO corpseDTO) {
-        Corpse corpse = getDataById(corpseDTO.getId());
-        Grave grave = graveService.getDataById(corpseDTO.getGraveId());
-
+    public Corpse updateDataWithDto(CorpseUpdateDTO corpseUpdateDTO) {
+        Corpse corpse = getDataById(corpseUpdateDTO.getId());
+        Grave grave = graveService.getDataById(corpseUpdateDTO.getGraveId());
         corpse.setGrave(grave);
         return corpseRepository.save(corpse);
     }

@@ -87,6 +87,6 @@ public class TransactionServiceDbImpl implements TransactionService{
 
     public List<Transaction> getAllDataByUser(String userId) {
         User user = userServiceDb.getDataById(userId);
-        return transactionRepository.findAllByUseraAndStatus(user, "SUCCESS");
+        return transactionRepository.findAllByUserAndStatus(user, "SUCCESS");
     }
 }

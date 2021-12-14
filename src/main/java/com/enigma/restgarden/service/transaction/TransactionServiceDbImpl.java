@@ -80,12 +80,13 @@ public class TransactionServiceDbImpl implements TransactionService{
             Transaction transaction = new Transaction(user, grave, transactionDto.getTotalSlot(), transactionDto.getDescription());
             transaction.setTotalPrice(grave.getPrice() * transaction.getTotalSlot());
             transaction.setType("Transaction");
+            transaction.setStatus("SUCCESS");
             return transactionRepository.save(transaction);
         }
     }
 
     public List<Transaction> getAllDataByUser(String userId) {
         User user = userServiceDb.getDataById(userId);
-        return transactionRepository.findAllByUser(user);
+        return transactionRepository.findAllByUseraAndStatus(user, "SUCCESS");
     }
 }

@@ -31,6 +31,7 @@ public class Transaction {
     private Timestamp date;
     private Integer totalPrice;
     private String description;
+    private String status;
     private String type;
 
     public Transaction() {
@@ -157,5 +158,13 @@ public class Transaction {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

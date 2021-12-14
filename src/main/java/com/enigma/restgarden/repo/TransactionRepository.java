@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, String> {
-    List<Transaction> findAllByUser(User user);
+    List<Transaction> findAllByUseraAndStatus(User user, String status);
 }

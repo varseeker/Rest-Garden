@@ -73,9 +73,13 @@ public class ReservationServiceDbImpl implements ReservationService{
 
     @Override
     public void deleteData(String id) {
-        Reservation data = getDataById(id);
-        data.getGrave().setAvailableSlots(data.getGrave().getAvailableSlots() + data.getTotalSlot());
-        reservationRepository.deleteById(data.getId());
+        Reservation reservation = getDataById(id);
+        Transaction transaction = new Transaction(reservation.getUser(), reservation.getGrave(), reservation.getTotalSlot(), reservation.getDescription());
+        transaction.setType("Reservation");
+        transaction.setStatus("CANCELED");
+        transactionServiceDb.createData(transaction);
+        reservation.getGrave().setAvailableSlots(reservation.getGrave().getAvailableSlots() + reservation.getTotalSlot());
+        reservationRepository.deleteById(reservation.getId());
     }
 
     public void deleteDataJustById(String id) {
@@ -110,6 +114,7 @@ public class ReservationServiceDbImpl implements ReservationService{
         Transaction transaction = new Transaction(reservation.getUser(), reservation.getGrave(), reservation.getTotalSlot(), reservation.getDescription());
         transaction.setTotalPrice(reservation.getTotalPayment());
         transaction.setType("Reservation");
+        transaction.setStatus("SUCCESS");
         transactionServiceDb.createData(transaction);
         reservationRepository.deleteById(reservation.getId());
         return reservation;
